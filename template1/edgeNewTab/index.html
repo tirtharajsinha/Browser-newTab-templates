@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="contextmenu.js"></script>
+
+    <link rel="stylesheet" href="contextmenu.css" />
+
+    <title>MicroSoft Edge</title>
+</head>
+
+<body>
+    <div class="wrap-all">
+        <img class="wrapped-bg" src="https://source.unsplash.com/featured/1600x900?{water},{green},{hill},{snow}" alt="" />
+        <div class="container">
+            <!-- search bar -->
+            <div class="searchbar">
+                <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)" autocomplete="off" />
+                <!-- autosuggest bar -->
+                <div class="autocomplete">
+                    <ul id="suggetion-box">
+
+                    </ul>
+                </div>
+            </div>
+            <!-- dock view div -->
+            <div id="dock-container">
+                <div id="dock" onload="load_buttons()">
+                    <ul id="dock-but">
+                        <li>
+                            <!-- <a href="http://github.com"><img src="https://api.faviconkit.com/github.com/356" /> -->
+                            </a>
+                            <div class="contexticon">
+                                <i class="fa fa-flag-o"></i>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- dock plain/base div -->
+                    <div class="base" id="dock-base"></div>
+                </div>
+            </div>
+            <!-- add shortcut entry prompt -->
+            <div class="entry" id="promt">
+                <div class="head">
+                    <h1>Add shortcut</h1>
+                    <h1 onclick="close_prompt()">X</h1>
+                </div>
+                <input type="url" name="url" id="entry_url" placeholder="Put url" />
+                <button onclick="add_button()">Submit</button>
+            </div>
+
+            <!-- Datetime div -->
+            <div class="datetime">
+                <div class="effect"></div>
+                <p class="time">
+                    <span class="mark">TIME</span><br />
+                    <span class="hour" id="hour"></span>
+                    <span class="minute" id="minute"></span> <br />
+                </p>
+                <p class="date">
+                    <span class="day" id="day"></span>
+                    <span class="daydate" id="date"></span>
+                    <span class="month" id="month"></span>
+                </p>
+            </div>
+
+            <div class="weather" onmousemove="toggle_forweather('250px')" onmouseleave="toggle_forweather('0px')">
+                <div class="curweather">
+                    <img id="curweather-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="" />
+                    <p class="curweather-text">
+                        <span id="curtemp">30</span><span> °C</span>
+                    </p>
+                </div>
+                <div class="forweather" id="forweather">
+                    <input type="text" id="place-entry" onchange="updateplace(this)" /><i class="fa fa-map-marker"></i>
+                    <ul>
+                        <li class="wday">
+                            <h3 class="forweekday"></h3>
+                            <img class="foricon" src="" alt="" />
+                            <p><span class="fortemp"></span><span> °C</span></p>
+                        </li>
+                        <li class="wday">
+                            <h3 class="forweekday"></h3>
+                            <img class="foricon" src="" alt="" />
+                            <p><span class="fortemp"></span><span> °C</span></p>
+                        </li>
+                        <li class="wday">
+                            <h3 class="forweekday"></h3>
+                            <img class="foricon" src="" alt="" />
+                            <p><span class="fortemp"></span><span> °C</span></p>
+                        </li>
+                    </ul>
+                    <a href="#" class="moreweather">Get Full Forecast</a>
+                </div>
+            </div>
+        </div>
+        <!-- initially hidden right-click context menu for dock elements -->
+        <div class="hide" id="rmenu">
+            <ul>
+                <li>
+                    <i class="fa fa-trash" onclick="remove_button()"> Remove</i>
+                </li>
+                <li>
+                    <i class="fa fa-edit"> Edit</i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="autosuggest.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
