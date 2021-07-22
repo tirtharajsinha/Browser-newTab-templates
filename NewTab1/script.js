@@ -1,7 +1,8 @@
 let delete_index = -1;
 load_buttons();
-fetchcurweatherapi();
 fetchforweatherapi();
+fetchcurweatherapi();
+
 clock();
 
 function clock() {
@@ -63,7 +64,12 @@ function clock() {
 function fetchforweatherapi() {
     let place = read_json("weatherplace");
     let base = "http://api.openweathermap.org/data/2.5/forecast?q=";
-    let weatherapi = "e26b59116fb50f13ac33e82f630f04f6";
+    let weatherapi = "";
+    if (weatherapi == "") {
+        alert("weather api not available!!");
+        return NaN;
+    }
+
     let url = base + place[0] + "&appid=" + weatherapi + "&units=metric";
     fetch(url)
         .then((response) => response.json())
@@ -101,7 +107,10 @@ function process_forweather_data(data) {
 function fetchcurweatherapi() {
     let place = read_json("weatherplace", ["katwa"]);
     let base = "http://api.openweathermap.org/data/2.5/weather?q=";
-    let weatherapi = "e26b59116fb50f13ac33e82f630f04f6";
+    let weatherapi = "";
+    if (weatherapi == "") {
+        return NaN;
+    }
     let url = base + place[0] + "&appid=" + weatherapi + "&units=metric";
     fetch(url)
         .then((response) => response.json())
