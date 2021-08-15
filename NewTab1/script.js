@@ -1,8 +1,7 @@
 let delete_index = -1;
 load_buttons();
-fetchforweatherapi();
 fetchcurweatherapi();
-
+fetchforweatherapi();
 clock();
 
 function clock() {
@@ -64,12 +63,10 @@ function clock() {
 function fetchforweatherapi() {
     let place = read_json("weatherplace");
     let base = "http://api.openweathermap.org/data/2.5/forecast?q=";
-    let weatherapi = "";
+    let weatherapi = "e26b59116fb50f13ac33e82f630f04f6";
     if (weatherapi == "") {
-        alert("weather api not available!!");
         return NaN;
     }
-
     let url = base + place[0] + "&appid=" + weatherapi + "&units=metric";
     fetch(url)
         .then((response) => response.json())
@@ -107,8 +104,9 @@ function process_forweather_data(data) {
 function fetchcurweatherapi() {
     let place = read_json("weatherplace", ["katwa"]);
     let base = "http://api.openweathermap.org/data/2.5/weather?q=";
-    let weatherapi = "";
+    let weatherapi = "e26b59116fb50f13ac33e82f630f04f6";
     if (weatherapi == "") {
+        alert("weather api not available!!");
         return NaN;
     }
     let url = base + place[0] + "&appid=" + weatherapi + "&units=metric";
@@ -265,10 +263,10 @@ function remove_button() {
 
 function change_dock_width(indicator) {
     if (indicator == "+") {
-        let w = document.getElementById("dock-base").offsetWidth + 90;
+        let w = document.getElementById("dock-base").offsetWidth + 70;
         document.getElementById("dock-base").style.width = w + "px";
     } else if (indicator == "-") {
-        let w = document.getElementById("dock-base").offsetWidth - 90;
+        let w = document.getElementById("dock-base").offsetWidth - 70;
         document.getElementById("dock-base").style.width = w + "px";
     }
 }

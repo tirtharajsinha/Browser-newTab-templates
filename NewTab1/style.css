@@ -182,7 +182,7 @@ body {
 
 #dock .base {
     position: relative;
-    width: 600px;
+    width: 550px;
     border-bottom: 50px solid rgba(0, 143, 105, 0.712);
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
@@ -202,7 +202,7 @@ body {
 
 #dock li {
     position: relative;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     -webkit-transition: all 0.3s;
 }
 
@@ -220,8 +220,8 @@ body {
 #dock li .flag {
     height: 20px;
     width: 20px;
-    background-color: rgb(134, 141, 141);
-    color: white;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
     padding: 0px;
     border-radius: 50%;
     padding: 1px;
@@ -231,21 +231,22 @@ body {
 
 #dock li img {
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: 54px;
+    height: 54px;
     -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(rgba(255, 255, 255, 0.5)));
     /* reflection is supported by webkit only */
     -webkit-transition: all 0.3s;
     -webkit-transform-origin: 50% 100%;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
     transition: all 0.4s ease;
     cursor: pointer;
     z-index: 9;
 }
 
 #dock li:hover {
-    -webkit-transform: translateY(-20px);
+    /* -webkit-transform: translateY(-20px); */
+    -webkit-transform: scale(1.4);
 }
 
 #dock li:hover .contexticon {
@@ -260,9 +261,10 @@ body {
     right: -8px;
 }
 
-#dock li:hover+li img,
-#dock li .prev img {
-    -webkit-transform: translateY(-10px);
+#dock li:hover+li,
+#dock li .prev {
+    /* -webkit-transform: translateY(-10px); */
+    -webkit-transform: scale(1.1);
 }
 
 .entry {
