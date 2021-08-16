@@ -317,6 +317,56 @@ body {
     margin-left: 210px;
 }
 
+.edit {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: 400px;
+    right: -300px;
+    box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+    border-bottom: 5px solid rgb(51, 223, 36);
+    transition: all 0.3s ease;
+}
+
+.edit .head {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(51, 223, 36);
+    color: white;
+    font-size: 12px;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 10px;
+}
+
+.edit .head h1:nth-child(2) {
+    cursor: pointer;
+}
+
+.edit input {
+    width: 85%;
+    height: 35px;
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+    padding-left: 10px;
+    border-radius: 10px;
+    border-color: rgb(51, 223, 36);
+    outline: none;
+}
+
+.edit button {
+    padding: 5px 10px;
+    background-color: rgb(51, 223, 36);
+    margin-top: 10px;
+    border-radius: 10px;
+    margin-left: 210px;
+}
+
 .weather .effect {
     position: absolute;
     left: 0px;

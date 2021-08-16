@@ -55,6 +55,14 @@
                 <input type="url" name="url" id="entry_url" placeholder="Put url" />
                 <button onclick="add_button()">Submit</button>
             </div>
+            <div class="edit" id="edit-promt">
+                <div class="head">
+                    <h1>Add shortcut</h1>
+                    <h1 onclick="close_edit()">X</h1>
+                </div>
+                <input type="url" name="url" id="edit_url" />
+                <button onclick="update_button()">Submit</button>
+            </div>
 
             <!-- Datetime div -->
             <div class="datetime">
@@ -108,7 +116,7 @@
                     <i class="fa fa-trash" onclick="remove_button()"> Remove</i>
                 </li>
                 <li>
-                    <i class="fa fa-edit"> Edit</i>
+                    <i class="fa fa-edit" onclick="edit_button()"> Edit</i>
                 </li>
             </ul>
         </div>

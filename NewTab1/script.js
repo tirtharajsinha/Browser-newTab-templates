@@ -1,4 +1,5 @@
 let delete_index = -1;
+let edit_index = -1;
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
@@ -249,6 +250,7 @@ function packing_data() {
 
 function stack_remove(i) {
     delete_index = i;
+    edit_index = i;
 }
 
 function remove_button() {
@@ -257,6 +259,47 @@ function remove_button() {
         data.splice(delete_index, 1);
         write_json(data);
 
+        load_buttons();
+    }
+}
+
+function edit_button() {
+    if (edit_index != -1) {
+        console.log(edit_index);
+        open_edit();
+    }
+}
+
+function open_edit() {
+    let data = read_json();
+    document.getElementById("edit_url").value = data[edit_index].link;
+    document.getElementById("edit-promt").style.right = "20px";
+}
+
+function close_edit() {
+    document.getElementById("edit-promt").style.right = "-300px";
+}
+
+function packing_edit_data() {
+    let url = document.getElementById("edit_url").value;
+    // console.log("send  " + url);
+    let domain = url.split("/")[2].replace("www.", "");
+    let data = {};
+    data["icon"] = "https://api.faviconkit.com/" + domain + "/356";
+    data["link"] = url;
+    document.getElementById("edit_url").value = "";
+    return data;
+}
+
+function update_button() {
+    if (edit_index != -1) {
+        let data = read_json();
+        // data[edit_index] = packing_data();
+
+        data[edit_index].link = document.getElementById("edit_url").value;
+        console.log(data[edit_index]);
+        write_json(data);
+        // console.log(document.getElementById("edit_url").value);
         load_buttons();
     }
 }
