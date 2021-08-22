@@ -19,7 +19,8 @@ function clock() {
             min = "0" + min;
         }
 
-        var dd = a.getDay() - 1;
+        var dd = a.getDay();
+        // console.log("date=" + dd);
         var weekday = [
             "SUNDAY",
             "MONDAY",
