@@ -172,7 +172,7 @@ function load_buttons() {
             link +
             " ' class='test'><img src='" +
             icon +
-            "' alt=''/></a>" +
+            "' alt='[]'/></a>" +
             menu +
             "</li>" +
             dock;
@@ -233,7 +233,7 @@ function add_button() {
     }
     mydata.push(newdata);
     write_json(mydata);
-
+    close_prompt();
     load_buttons();
     document.getElementById("dock-base").style.width;
 }
@@ -301,6 +301,7 @@ function update_button() {
         console.log(data[edit_index]);
         write_json(data);
         // console.log(document.getElementById("edit_url").value);
+        close_edit();
         load_buttons();
     }
 }
