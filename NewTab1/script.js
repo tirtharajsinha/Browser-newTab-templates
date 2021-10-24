@@ -5,6 +5,7 @@ let walltime = 0;
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
+touchleft();
 clock();
 
 function clock() {
@@ -335,4 +336,24 @@ function updateplace(ele) {
   console.log("changed to" + read_json("weatherplace"));
   fetchcurweatherapi();
   fetchforweatherapi();
+}
+
+function touchleft() {
+  document.addEventListener("mousemove", function (event) {
+    if (event.clientX >= window.innerWidth - 1) {
+      console.log("out from left");
+    }
+  });
+}
+
+function widget_control(action) {
+  if (action == 1) {
+    document.getElementById("widget").style.transform = "translateX(0px)";
+    document.getElementById("c-open").style.display = "none";
+    document.getElementById("c-close").style.display = "flex";
+  } else {
+    document.getElementById("widget").style.transform = "translateX(500px)";
+    document.getElementById("c-open").style.display = "flex";
+    document.getElementById("c-close").style.display = "none";
+  }
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="widgetStyle.css">
     <link rel="shortcut icon" href="newtab.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="contextmenu.js"></script>
@@ -17,7 +18,7 @@
 </head>
 
 <body>
-    <div class="wrap-all">
+    <div class="wrap-all" id="wrap-all">
         <img class="wrapped-bg" id="wrapped-bg" src="wallpapers/win11-dyna.gif" alt="" />
         <div class="container">
             <!-- search bar -->
@@ -46,6 +47,8 @@
                     <div class="base" id="dock-base"></div>
                 </div>
             </div>
+
+
             <!-- add shortcut entry prompt -->
             <div class="entry" id="promt">
                 <div class="head">
@@ -64,6 +67,18 @@
                 <button onclick="update_button()">Submit</button>
             </div>
 
+            <!-- added widget promt -->
+            <div class="widget-control" id="c-open" onclick="widget_control(1)"><i class="fa fa-bars"></i></div>
+            <div class="widget-control" id="c-close" onclick="widget_control(0)"><i class="fa fa-close"></i></div>
+            <div class="widget" id="widget">
+                <div class="w-head">
+                    <h2>Widget Panel</h2>
+                    <div class="panel">
+                        <i class="fa fa-search"></i>
+                        <i class="fa fa-gear"></i>
+                    </div>
+                </div>
+            </div>
             <!-- Datetime div -->
             <div class="datetime">
                 <div class="effect"></div>
@@ -120,6 +135,8 @@
                 </li>
             </ul>
         </div>
+
+
     </div>
     <script src="autosuggest.js"></script>
     <script src="script.js"></script>
