@@ -3,29 +3,38 @@ let edit_index = -1;
 let walltime = 0;
 let newsList = [];
 var newscurser = 0;
+let loaded_news = false;
+const delay = 10000; // anti-rebound for 500ms
+let lastExecution = 0;
+
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
-fetchheadlinesnews();
-fetchtopicwisenews();
 touchleft();
 
 document.getElementById("widget").addEventListener("scroll", function (e) {
   var element = e.target;
-  if (element.scrollHeight - element.scrollTop < element.clientHeight) {
-    console.log("scrolled end");
-    load_news();
-    setTimeout(function () {
+  if (element.scrollHeight - element.scrollTop <= element.clientHeight + 1) {
+    console.log(
+      "scrolled to end",
+      element.scrollHeight - element.scrollTop,
+      element.clientHeight
+    );
+    // preventing to call load_news() to call more than one in 5s
+    if (lastExecution + delay < Date.now()) {
+      // execute my lines
       load_news();
-    }, 5000);
+      lastExecution = Date.now();
+    } else {
+      console.log(
+        "calling too often....time remaining for next call : ",
+        (lastExecution + delay - Date.now()) / 1000,
+        " s"
+      );
+    }
   }
   // console.log("scrolling...");
-  // console.log(
-  //   element.scrollHeight,
-  //   element.scrollTop,
-  //   element.scrollHeight - element.scrollTop,
-  //   element.clientHeight - 10
-  // );
+  // console.log(element.scrollHeight - element.scrollTop, element.clientHeight);
 });
 
 clock();
@@ -359,6 +368,8 @@ function updateplace(ele) {
   fetchcurweatherapi();
   fetchforweatherapi();
 }
+
+// widget controler
 var widget_state = false;
 function touchleft() {
   document.addEventListener("mousemove", function (event) {
@@ -379,18 +390,14 @@ function touchleft() {
 function widget_control(action) {
   if (action == 1) {
     widget_state = true;
+    if (loaded_news == false) {
+      loaded_news = true;
+      fetchheadlinesnews();
+      fetchtopicwisenews();
+    }
     document.getElementById("widget").style.transform = "translateX(0px)";
 
     document.getElementById("c-close").style.display = "flex";
-    if (newscurser == 0) {
-      try {
-        load_news();
-      } catch (error) {
-        setTimeout(function () {
-          load_news();
-        }, 3000);
-      }
-    }
   } else {
     document.getElementById("widget").style.transform = "translateX(500px)";
     document.getElementById("c-close").style.display = "none";
@@ -399,13 +406,15 @@ function widget_control(action) {
 }
 
 function fetchheadlinesnews() {
-  let base = "https://newsapi.org/v2/top-headlines?country=in&apiKey=";
+  let base =
+    "https://quartziferous-wool.000webhostapp.com/newsdata/newsapi.php?type=top&query=";
+  let add_ons = "country=in@apiKey=";
   let newsapi = "2fbfbc294434437e8818f71739b32d00";
   if (newsapi == "") {
     alert("weather api not available!!");
     return NaN;
   }
-  let url = base + newsapi;
+  let url = base + add_ons + newsapi;
   fetch(url)
     .then((response) => response.json())
     .then((data) => process_news_data(data))
@@ -421,39 +430,50 @@ function fetchtopicwisenews() {
     "cricket",
     "sports",
     "celebrity",
+    "psg",
+    "messi",
   ];
   // topics.join("%20OR%20")
   let base =
-    "https://newsapi.org/v2/everything?q=" +
-    topics.join("%20OR%20") +
-    "&pageSize=50&apiKey=";
+    "https://quartziferous-wool.000webhostapp.com/newsdata/newsapi.php?type=every&query=";
+
+  let add_ons = "q=" + topics.join("%20OR%20") + "@pageSize=50@apiKey=";
   let newsapi = "2fbfbc294434437e8818f71739b32d00";
   if (newsapi == "") {
     alert("weather api not available!!");
     return NaN;
   }
-  let url = base + newsapi;
+  let url = base + add_ons + newsapi;
   console.log(url);
   fetch(url)
     .then((response) => response.json())
-    .then((data) => process_news_data(data))
+    .then((data) => process_news_data(data, true))
     .catch(function (error) {
       console.log(error);
     });
 }
 
-function process_news_data(data) {
+function process_news_data(data, ready = false) {
   newsList = newsList.concat(data["articles"]);
   newsList = shuffleArray(newsList);
   console.log(newsList.length);
+  if (ready && newscurser == 0) {
+    console.log("loding for first time");
+    setTimeout(function () {
+      load_news();
+    }, 100);
+  }
 }
 
 function load_news() {
   console.log(newsList.length);
   var element = document.getElementById("news").innerHTML;
+  if (newscurser >= newsList.length) {
+    return 0;
+  }
   for (var i = newscurser; i < newscurser + 10; i++) {
     // console.log(newsList[i]["title"]);
-    if (i < newsList.length) {
+    if (i < newsList.length && newsList[i]["urlToImage"] != null) {
       let title = newsList[i]["title"];
       let url = newsList[i]["url"];
       let imageurl = newsList[i]["urlToImage"];
@@ -463,6 +483,7 @@ function load_news() {
     // console.log(i);
   }
   document.getElementById("news").innerHTML = element;
+  console.log("load range : " + newscurser, " -> " + (newscurser + 10));
   newscurser = newscurser + 10;
 }
 
