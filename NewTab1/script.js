@@ -1,11 +1,33 @@
 let delete_index = -1;
 let edit_index = -1;
 let walltime = 0;
-
+let newsList = [];
+var newscurser = 0;
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
+fetchheadlinesnews();
+fetchtopicwisenews();
 touchleft();
+
+document.getElementById("widget").addEventListener("scroll", function (e) {
+  var element = e.target;
+  if (element.scrollHeight - element.scrollTop < element.clientHeight) {
+    console.log("scrolled end");
+    load_news();
+    setTimeout(function () {
+      load_news();
+    }, 5000);
+  }
+  // console.log("scrolling...");
+  // console.log(
+  //   element.scrollHeight,
+  //   element.scrollTop,
+  //   element.scrollHeight - element.scrollTop,
+  //   element.clientHeight - 10
+  // );
+});
+
 clock();
 
 function clock() {
@@ -337,23 +359,140 @@ function updateplace(ele) {
   fetchcurweatherapi();
   fetchforweatherapi();
 }
-
+var widget_state = false;
 function touchleft() {
   document.addEventListener("mousemove", function (event) {
     if (event.clientX >= window.innerWidth - 1) {
       console.log("out from left");
+      widget_control(1);
     }
   });
+  document
+    .getElementById("wrap-all")
+    .addEventListener("click", function (event) {
+      if (widget_state) {
+        widget_control(0);
+      }
+    });
 }
 
 function widget_control(action) {
   if (action == 1) {
+    widget_state = true;
     document.getElementById("widget").style.transform = "translateX(0px)";
-    document.getElementById("c-open").style.display = "none";
+
     document.getElementById("c-close").style.display = "flex";
+    if (newscurser == 0) {
+      try {
+        load_news();
+      } catch (error) {
+        setTimeout(function () {
+          load_news();
+        }, 3000);
+      }
+    }
   } else {
     document.getElementById("widget").style.transform = "translateX(500px)";
-    document.getElementById("c-open").style.display = "flex";
     document.getElementById("c-close").style.display = "none";
+    widget_state = false;
   }
+}
+
+function fetchheadlinesnews() {
+  let base = "https://newsapi.org/v2/top-headlines?country=in&apiKey=";
+  let newsapi = "2fbfbc294434437e8818f71739b32d00";
+  if (newsapi == "") {
+    alert("weather api not available!!");
+    return NaN;
+  }
+  let url = base + newsapi;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => process_news_data(data))
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+function fetchtopicwisenews() {
+  let topics = [
+    "programming",
+    "technology",
+    "football",
+    "cricket",
+    "sports",
+    "celebrity",
+  ];
+  // topics.join("%20OR%20")
+  let base =
+    "https://newsapi.org/v2/everything?q=" +
+    topics.join("%20OR%20") +
+    "&pageSize=50&apiKey=";
+  let newsapi = "2fbfbc294434437e8818f71739b32d00";
+  if (newsapi == "") {
+    alert("weather api not available!!");
+    return NaN;
+  }
+  let url = base + newsapi;
+  console.log(url);
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => process_news_data(data))
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function process_news_data(data) {
+  newsList = newsList.concat(data["articles"]);
+  newsList = shuffleArray(newsList);
+  console.log(newsList.length);
+}
+
+function load_news() {
+  console.log(newsList.length);
+  var element = document.getElementById("news").innerHTML;
+  for (var i = newscurser; i < newscurser + 10; i++) {
+    // console.log(newsList[i]["title"]);
+    if (i < newsList.length) {
+      let title = newsList[i]["title"];
+      let url = newsList[i]["url"];
+      let imageurl = newsList[i]["urlToImage"];
+      element += newsBlock(title, url, imageurl);
+    }
+
+    // console.log(i);
+  }
+  document.getElementById("news").innerHTML = element;
+  newscurser = newscurser + 10;
+}
+
+function newsBlock(Title, url, imageurl) {
+  let domain = url.split("/")[2].replace("www.", "");
+  let block = `
+  <div class="news-block">
+                <a href="${url}">
+                    <img src="${imageurl}" alt="">
+                    <p class="news-title">${Title}</p>
+                </a>
+                <div class="source">
+                    <a href="${domain}">${domain}</a>
+                    <div class="react">
+                        <i class="fa fa-heart-o"></i>
+                        <i class="fa fa-share-alt"></i>
+                        <i class="fa fa-bookmark-o"></i>
+                    </div>
+                </div>
+                <hr>
+
+            </div>
+  `;
+  return block;
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
