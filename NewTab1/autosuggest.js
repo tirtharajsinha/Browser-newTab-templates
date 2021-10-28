@@ -1,3 +1,4 @@
+let userval = "";
 function auto_suggest(ele) {
   let q = ele.value;
   if (ele.value.length < 1) {
@@ -7,6 +8,7 @@ function auto_suggest(ele) {
   } else {
     currentfocus = -1;
     console.log(q);
+    userval = q;
     fetchsuggestions(q);
   }
   if (ele.value.length < 2) {
@@ -53,9 +55,9 @@ function formatsuggetions(data) {
   for (var i = 0; i < 5; i++) {
     str =
       str +
-      '<li class="suggests" onclick="add_sugg_to_searchbar(this)"> ' +
+      '<li class="suggests" onclick="add_sugg_to_searchbar(this)"><i class="fa fa-search"></i><p class="sugg-val">' +
       data[i].title +
-      "</li>";
+      "</p><i class='fa fa-arrow-right open-link'></i></li>";
   }
   box.innerHTML = str;
 
@@ -115,7 +117,9 @@ function replaceURL(event) {
 }
 
 function add_sugg_to_searchbar(item) {
-  document.getElementById("searchbar").value = item.innerHTML;
+  document.getElementById("searchbar").value =
+    item.getElementsByClassName("sugg-val")[0].innerHTML;
+  replaceURL();
 }
 
 document
@@ -134,12 +138,19 @@ function suggests_scroll() {
   if (currentfocus != -1) {
     elements[currentfocus].style.color = "rgb(94, 94, 94)";
     elements[currentfocus].style.background = "rgb(202, 202, 202)";
+    let elem = document.getElementsByClassName("suggests");
+    document.getElementById("searchbar").value =
+      elem[currentfocus].getElementsByClassName("sugg-val")[0].innerHTML;
+  }
+  if (currentfocus == -1) {
+    document.getElementById("searchbar").value = userval;
   }
 }
 
 function setsuggest() {
   let elements = document.getElementsByClassName("suggests");
-  document.getElementById("searchbar").value = elements[currentfocus].innerHTML;
+  document.getElementById("searchbar").value =
+    elements[currentfocus].getElementsByClassName("sugg-val")[0].innerHTML;
   currentfocus = -1;
   replaceURL();
 }

@@ -91,11 +91,27 @@ body {
     font-size: 18px;
     color: rgb(139, 139, 139);
     cursor: pointer;
+    display: flex;
+    position: relative;
 }
 
 .autocomplete .suggests:hover {
     background: rgb(202, 202, 202);
     color: rgb(94, 94, 94);
+}
+
+.suggests i {
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.suggests .open-link {
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    transform: rotate(-45deg);
 }
 
 .datetime {

@@ -5,6 +5,7 @@ var newscurser = 0;
 let loaded_news = false;
 const delay = 10000; // anti-rebound for 500ms
 let lastExecution = 0;
+let load_permission = true;
 
 touchleft();
 
@@ -53,6 +54,18 @@ document.getElementById("widget").addEventListener("scroll", function (e) {
   // console.log(element.scrollHeight - element.scrollTop, element.clientHeight);
 });
 
+function enable_news(ele) {
+  if (ele.checked) {
+    document.getElementById("checkstate").innerHTML = "Disable News widget";
+
+    document.getElementById("checkstate").style.color = "#cacaca";
+    load_permission = true;
+    fetcher();
+  } else {
+    document.getElementById("checkstate").innerHTML = "Enable News widget";
+    document.getElementById("checkstate").style.color = "#0dda4a";
+  }
+}
 function touchleft() {
   document.addEventListener("mousemove", function (event) {
     if (event.clientX >= window.innerWidth - 1) {
@@ -69,13 +82,12 @@ function touchleft() {
     });
 }
 
-function widget_control(action) {
+function widget_control(action, ele) {
   if (action == 1) {
     widget_state = true;
-    if (loaded_news == false) {
-      loaded_news = true;
-      fetchheadlinesnews();
-      fetchtopicwisenews();
+
+    if (loaded_news == false && load_permission) {
+      fetcher();
     }
     document.getElementById("widget").style.transform = "translateX(0px)";
 
@@ -84,6 +96,22 @@ function widget_control(action) {
     document.getElementById("widget").style.transform = "translateX(500px)";
     document.getElementById("c-close").style.display = "none";
     widget_state = false;
+  }
+}
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if (new Date().getTime() - start > milliseconds) {
+      break;
+    }
+  }
+}
+
+function fetcher() {
+  if (loaded_news == false && load_permission) {
+    loaded_news = true;
+    fetchheadlinesnews();
+    fetchtopicwisenews();
   }
 }
 
@@ -149,6 +177,9 @@ function process_news_data(data, ready = false) {
 }
 
 function load_news() {
+  if (load_permission == false) {
+    return 0;
+  }
   console.log(newsList.length);
   var element = document.getElementById("news").innerHTML;
   if (newscurser >= newsList.length) {

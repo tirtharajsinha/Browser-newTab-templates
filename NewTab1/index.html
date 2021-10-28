@@ -129,11 +129,16 @@
     </div>
 
     <!-- added widget promt -->
-    <div class="widget-control" id="c-open" onclick="widget_control(1)"><i class="fa fa-bars"></i></div>
-    <div class="widget-control" id="c-close" onclick="widget_control(0)"><i class="fa fa-close"></i></div>
+    <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
+        <i class="fa fa-ellipsis-v"> </i>
+        <i class="fa fa-ellipsis-v" style="margin-left: 3px;margin-right: 3px;"> </i>
+        <i class="fa fa-ellipsis-v"> </i>
+    </div>
+    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div>
     <div class="widget" id="widget">
         <div class="w-head">
             <h2>Widget Panel</h2>
+
             <div class="panel">
                 <i class="fa fa-search"></i>
                 <i class="fa fa-gear"></i>
@@ -141,10 +146,42 @@
         </div>
         <!-- <div class="sports">
             <h2>Sports Fixtures</h2>
+
+            <div class="sport-block">
+                <div class="standing">
+                    <div class="team">
+                        <div class="team_data">
+                            <img src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/83.png" alt="">
+                            <p class="name">BAR</p>
+                        </div>
+                        <p class="score won"></p>
+                    </div>
+                    <p class="situation">10:20<br>29/10/21</p>
+                    <div class="team">
+                        <p class="score lost"></p>
+                        <div class="team_data">
+                            <img src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/96.png" alt="">
+                            <p class="name">ALV</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="league">spanish La liga</div>
+            </div>
         </div> -->
+
 
         <div class="news" id="news">
             <h2>Top News</h2>
+            <div id="permission">
+                <label class="switch">
+                    <input type="checkbox" checked onchange="enable_news(this)">
+                    <span class="slider round"></span>
+                </label>
+                <p id="checkstate">Disable News widget</p>
+            </div>
             <hr>
 
             <!-- <div class="news-block">
@@ -172,6 +209,7 @@
     <script src="api_key.js"></script>
     <script src="widget.js"></script>
     <script src="script.js"></script>
+    <!-- <script src="soccer_api.js"></script> -->
 
 </body>
 
