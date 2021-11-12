@@ -1,11 +1,11 @@
 let delete_index = -1;
 let edit_index = -1;
 let walltime = 0;
+let current_fevi = "";
 
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
-
 clock();
 
 function clock() {
@@ -175,6 +175,7 @@ function load_buttons() {
   for (var i = data.length - 1; i >= 0; i--) {
     let link = data[i]["link"];
     let icon = data[i]["icon"];
+
     dock =
       "<li oncontextmenu='stack_remove(" +
       i +
@@ -254,7 +255,8 @@ function packing_data() {
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
   let data = {};
-  data["icon"] = "https://api.faviconkit.com/" + domain + "/356";
+  data["icon"] =
+    "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
   data["link"] = url;
   document.getElementById("entry_url").value = "";
   return data;
@@ -297,8 +299,9 @@ function packing_edit_data() {
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
   let data = {};
-  data["icon"] = "https://api.faviconkit.com/" + domain + "/356";
   data["link"] = url;
+  data["icon"] =
+    "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
   document.getElementById("edit_url").value = "";
   return data;
 }
