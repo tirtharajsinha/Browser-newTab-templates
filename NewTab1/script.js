@@ -257,13 +257,20 @@ function add_button() {
 
 function packing_data() {
   let url = document.getElementById("entry_url").value;
+  let icon = document.getElementById("icon_url").value;
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
   let data = {};
-  data["icon"] =
-    "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
+  if (icon == "") {
+    data["icon"] =
+      "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
+  } else {
+    data["icon"] = icon;
+  }
+
   data["link"] = url;
   document.getElementById("entry_url").value = "";
+  document.getElementById("icon_url").value = "";
   return data;
 }
 
@@ -292,6 +299,7 @@ function edit_button() {
 function open_edit() {
   let data = read_json();
   document.getElementById("edit_url").value = data[edit_index].link;
+  document.getElementById("edit_icon_url").value = data[edit_index].icon;
   document.getElementById("edit-promt").style.right = "20px";
 }
 
@@ -299,15 +307,21 @@ function close_edit() {
   document.getElementById("edit-promt").style.right = "-300px";
 }
 
-function packing_edit_data() {
+function packing_edit_data(data) {
   let url = document.getElementById("edit_url").value;
+  let icon = document.getElementById("edit_icon_url").value;
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
-  let data = {};
+
   data["link"] = url;
-  data["icon"] =
-    "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
+  if (icon == "") {
+    data["icon"] =
+      "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
+  } else {
+    data["icon"] = icon;
+  }
   document.getElementById("edit_url").value = "";
+  document.getElementById("edit_icon_url").value = "";
   return data;
 }
 
@@ -316,8 +330,7 @@ function update_button() {
     let data = read_json();
     // data[edit_index] = packing_data();
 
-    data[edit_index].link = document.getElementById("edit_url").value;
-    console.log(data[edit_index]);
+    data[edit_index] = packing_edit_data(data[edit_index]);
     write_json(data);
     // console.log(document.getElementById("edit_url").value);
     close_edit();

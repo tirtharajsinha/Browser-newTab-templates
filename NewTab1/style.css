@@ -292,15 +292,18 @@ body {
   right: -8px;
 }
 
-#dock li:hover + li,
-#dock li .prev {
+#dock li:hover + li img {
   /* -webkit-transform: translateY(-10px); */
+  -webkit-transform: scale(1.1);
+}
+
+#dock li:hover .prev img {
   -webkit-transform: scale(1.1);
 }
 
 .entry {
   width: 300px;
-  height: 200px;
+  height: 300px;
   position: absolute;
   top: 400px;
   right: -300px;
@@ -351,7 +354,7 @@ body {
 
 .edit {
   width: 300px;
-  height: 200px;
+  height: 300px;
   position: absolute;
   top: 400px;
   right: -300px;

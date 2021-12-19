@@ -23,7 +23,8 @@
         <div class="container">
             <!-- search bar -->
             <div class="searchbar">
-                <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)" autocomplete="off" autofocus />
+                <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)"
+                    autocomplete="off" autofocus />
                 <!-- autosuggest bar -->
                 <div class="autocomplete">
                     <ul id="suggetion-box">
@@ -56,6 +57,7 @@
                     <h1 onclick="close_prompt()">X</h1>
                 </div>
                 <input type="url" name="url" id="entry_url" placeholder="Put url" />
+                <input type="url" name="icourl" id="icon_url" placeholder="Put icon url" />
                 <button onclick="add_button()">Submit</button>
             </div>
             <div class="edit" id="edit-promt">
@@ -64,6 +66,7 @@
                     <h1 onclick="close_edit()">X</h1>
                 </div>
                 <input type="url" name="url" id="edit_url" />
+                <input type="url" name="icourl" id="edit_icon_url" />
                 <button onclick="update_button()">Submit</button>
             </div>
 
