@@ -170,7 +170,10 @@ function addPrevClass(e) {
 function load_buttons() {
   // document.getElementById("dock-but").innerHTML = "";
   let data = read_json();
-  let dock = '<li> <img src = "plus.png"onclick = "open_prompt()" / ></li>';
+  let dock =
+    '<li style="animation-delay: ' +
+    data.length * 0.1 +
+    's;"> <img src = "plus.png"onclick = "open_prompt()"  /></li>';
   let menu = '<div class="contexticon"><i class="fa fa-flag-o flag"></i></div>';
   for (var i = data.length - 1; i >= 0; i--) {
     let link = data[i]["link"];
@@ -179,7 +182,9 @@ function load_buttons() {
     dock =
       "<li oncontextmenu='stack_remove(" +
       i +
-      ")'><a href='" +
+      ")' style='animation-delay: " +
+      0.1 * i +
+      "s;'><a href='" +
       link +
       " ' class='test'><img src='" +
       icon +
