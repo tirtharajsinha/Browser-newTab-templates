@@ -222,7 +222,7 @@ body {
 #dock li {
   position: relative;
   transform: translateY(-50px) translateX(30px) scale(0.6);
-
+  opacity: 0;
   animation: wave 0.6s ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -231,9 +231,11 @@ body {
 @keyframes wave {
   0% {
     transform: translateY(-50px) translateX(30px) scale(0.6);
+    opacity: 0;
   }
   100% {
     transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 1;
   }
 }
 
