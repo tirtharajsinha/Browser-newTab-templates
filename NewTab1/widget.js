@@ -205,12 +205,12 @@ function newsBlock(Title, url, imageurl) {
   let domain = url.split("/")[2].replace("www.", "");
   let block = `
   <div class="news-block">
-                <a href="${url}">
+                <a href="${url}" target="_blank">
                     <img src="${imageurl}" alt="">
                     <p class="news-title">${Title}</p>
                 </a>
                 <div class="source">
-                    <a href="${domain}">${domain}</a>
+                    <a href="${domain}" target="_blank">${domain}</a>
                     <div class="react">
                         <i class="fa fa-heart-o"></i>
                         <i class="fa fa-share-alt"></i>
