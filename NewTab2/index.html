@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="widgetStyle.css">
+    <link rel="shortcut icon" href="newtab.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="contextmenu.js"></script>
+
+    <link rel="stylesheet" href="contextmenu.css" />
+
+    <title>MicroSoft Edge</title>
+</head>
+
+
+<body>
+    <div class="wrap-all" id="wrap-all">
+        <!-- <img class="wrapped-bg" id="wrapped-bg" src="wallpapers/win11-dyna.gif" alt="" /> -->
+        <video autoplay playsinline muted style="pointer-events: none;" class="wrapped-bg">
+            <source id="bgsource" src="wallpapers/dynamic4.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <!-- search bar -->
+            <div class="searchbar">
+                <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)"
+                    autocomplete="off" autofocus />
+                <!-- autosuggest bar -->
+                <div class="autocomplete">
+                    <ul id="suggetion-box">
+
+                    </ul>
+                </div>
+            </div>
+            <!-- dock view div -->
+            <div id="dock-container">
+                <div id="dock" onload="load_buttons()">
+                    <ul id="dock-but">
+                        <li>
+                            <!-- <a href="http://github.com"><img src="https://api.faviconkit.com/github.com/356" /> -->
+                            </a>
+                            <div class="contexticon">
+                                <i class="fa fa-flag-o"></i>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- dock plain/base div -->
+                    <div class="base" id="dock-base"></div>
+                </div>
+            </div>
+
+
+            <!-- add shortcut entry prompt -->
+            <div class="entry" id="promt">
+                <div class="head">
+                    <h1>Add shortcut</h1>
+                    <h1 onclick="close_prompt()">X</h1>
+                </div>
+                <input type="url" name="url" id="entry_url" placeholder="Put url" />
+                <input type="url" name="icourl" id="icon_url" placeholder="Put icon url" />
+                <button onclick="add_button()">Submit</button>
+            </div>
+            <div class="edit" id="edit-promt">
+                <div class="head">
+                    <h1>Edit Shortcut</h1>
+                    <h1 onclick="close_edit()">X</h1>
+                </div>
+                <input type="url" name="url" id="edit_url" />
+                <input type="url" name="icourl" id="edit_icon_url" />
+                <button onclick="update_button()">Submit</button>
+            </div>
+
+
+            <!-- Datetime div -->
+            <div class="datetime">
+                <div class="effect"></div>
+                <p class="time">
+                    <span class="mark">TIME</span><br />
+                    <span class="hour" id="hour"></span>
+                    <span class="minute" id="minute"></span> <br />
+                </p>
+                <p class="date">
+                    <span class="day" id="day"></span>
+                    <span class="daydate" id="date"></span>
+                    <span class="month" id="month"></span>
+                </p>
+            </div>
+
+            <div class="weather" onmousemove="toggle_forweather('250px')" onmouseleave="toggle_forweather('0px')">
+                <div class="curweather">
+                    <img id="curweather-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="" />
+                    <p class="curweather-text">
+                        <span id="curtemp">30</span><span> °C</span>
+                    </p>
+                </div>
+                <div class="forweather" id="forweather">
+                    <input type="text" id="place-entry" onchange="updateplace(this)" /><i class="fa fa-map-marker"></i>
+                    <ul>
+                        <li class="wday">
+                            <h3 class="forweekday"></h3>
+                            <img class="foricon" src="" alt="" />
+                            <p><span class="fortemp"></span><span> °C</span></p>
+                        </li>
+                        <li class="wday">
+                            <h3 class="forweekday"></h3>
+                            <img class="foricon" src="" alt="" />
+                            <p><span class="fortemp"></span><span> °C</span></p>
+                        </li>
+                        <li class="wday">
+                            <h3 class="forweekday"></h3>
+                            <img class="foricon" src="" alt="" />
+                            <p><span class="fortemp"></span><span> °C</span></p>
+                        </li>
+                    </ul>
+                    <a href="#" class="moreweather">Get Full Forecast</a>
+                </div>
+            </div>
+        </div>
+        <!-- initially hidden right-click context menu for dock elements -->
+        <div class="hide" id="rmenu">
+            <ul>
+                <li>
+                    <i class="fa fa-trash" onclick="remove_button()"> Remove</i>
+                </li>
+                <li>
+                    <i class="fa fa-edit" onclick="edit_button()"> Edit</i>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <!-- added widget promt -->
+    <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
+        <i class="fa fa-ellipsis-v"> </i>
+        <i class="fa fa-ellipsis-v" style="margin-left: 3px;margin-right: 3px;"> </i>
+        <i class="fa fa-ellipsis-v"> </i>
+    </div>
+    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div>
+    <div class="widget" id="widget">
+        <div class="w-head">
+            <h2>Widget Panel</h2>
+
+            <div class="panel">
+                <i class="fa fa-search"></i>
+                <i class="fa fa-gear"></i>
+            </div>
+        </div>
+        <!-- <div class="sports">
+            <h2>Sports Fixtures</h2>
+
+            <div class="sport-block">
+                <div class="standing">
+                    <div class="team">
+                        <div class="team_data">
+                            <img src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/83.png" alt="">
+                            <p class="name">BAR</p>
+                        </div>
+                        <p class="score won"></p>
+                    </div>
+                    <p class="situation">10:20<br>29/10/21</p>
+                    <div class="team">
+                        <p class="score lost"></p>
+                        <div class="team_data">
+                            <img src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/96.png" alt="">
+                            <p class="name">ALV</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="league">spanish La liga</div>
+            </div>
+        </div> -->
+
+
+        <div class="news" id="news">
+            <h2>Top News</h2>
+            <div id="permission">
+                <label class="switch">
+                    <input type="checkbox" checked onchange="enable_news(this)">
+                    <span class="slider round"></span>
+                </label>
+                <p id="checkstate">Disable News widget</p>
+            </div>
+            <hr>
+
+            <!-- <div class="news-block">
+                <a href="https://www.zdnet.com/article/microsoft-makes-its-vs-code-tool-available-directly-in-the-browser/">
+                    <img src="https://techcrunch.com/wp-content/uploads/2020/04/visual-studio-online-hero-1.png" alt="">
+                    <p class="news-title">Microsoft makes its VS Code tool available directly in the browser.</p>
+                </a>
+                <div class="source">
+                    <a href="https://www.zdnet.com">www.zdnet.com</a>
+                    <div class="react">
+                        <i class="fa fa-heart-o"></i>
+                        <i class="fa fa-share-alt"></i>
+                        <i class="fa fa-bookmark-o"></i>
+                    </div>
+                </div>
+                <hr>
+
+            </div> -->
+
+
+
+        </div>
+    </div>
+    <div class="wallbtn"><i class="fa fa-image"></i></div>
+    <div class="wallpaperGalary">
+        <div class="galary">
+            <div class="closewallbtn"><i class="fa fa-close"></i></div>
+            <div class="wallpreview"></div>
+        </div>
+    </div>
+    <script src="autosuggest.js"></script>
+    <script src="api_key.js"></script>
+    <script src="widget.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.querySelector(".wallbtn").addEventListener('click',e =>{
+            document.querySelector(".wallpaperGalary").classList.add("walldisplay");
+            document.querySelector(".wallbtn").style.display="none";
+            createwallsettings();
+        })
+        document.querySelector(".closewallbtn").addEventListener('click',e =>{
+            document.querySelector(".wallpaperGalary").classList.remove("walldisplay");
+            document.querySelector(".wallbtn").style.display="flex";
+        })
+        function createwallsettings(){
+            var wallpaperlist=["dynamic1.mp4","dynamic2.mp4","dynamic3.mp4","dynamic4.mp4"];
+            let wallpreview=``;
+            wallpaperlist.forEach(wallpaper => {
+                wallpreview+=`<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
+            <source src="wallpapers/${wallpaper}" type="video/mp4">
+        </video>`
+
+            });
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML=wallpreview;
+
+        }
+        function changebg(wallurl){
+            let source=document.querySelector("#bgsource");
+            let video=document.querySelector(".wrapped-bg");
+            source.setAttribute('src', "wallpapers/"+wallurl);
+            video.load();
+            console.log(wallurl);
+            document.querySelector(".wallpaperGalary").classList.remove("walldisplay");
+            document.querySelector(".wallbtn").style.display="flex";
+        }
+        
+
+        
+    </script>
+    <!-- <script src="soccer_api.js"></script> -->
+
+</body>
+
+</html>
