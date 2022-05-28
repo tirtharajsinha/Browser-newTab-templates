@@ -167,6 +167,22 @@ function addPrevClass(e) {
 //         .addEventListener("mouseover", addPrevClass, false);
 // }
 
+function get_dock_style() {
+  if (localStorage.getItem("dockstyle") == null) {
+    localStorage.setItem("dockstyle", "bottom-dock-alt");
+    return "bottom-dock-alt";
+  } else {
+    return localStorage.getItem("dockstyle");
+  }
+}
+function set_dock_style() {
+  if (localStorage.getItem("dockstyle") == "bottom-dock-alt") {
+    localStorage.setItem("dockstyle", "bottom-dock");
+  } else {
+    localStorage.setItem("dockstyle", "bottom-dock-alt");
+  }
+}
+
 function load_buttons() {
   // document.getElementById("dock-but").innerHTML = "";
   let data = read_json();
@@ -193,6 +209,7 @@ function load_buttons() {
       "</li>" +
       dock;
   }
+  document.getElementById("dock").classList.add(get_dock_style());
   document.getElementById("dock-base").style.width = "600px";
   document.getElementById("dock-but").innerHTML = dock;
 
@@ -294,6 +311,19 @@ function edit_button() {
     console.log(edit_index);
     open_edit();
   }
+}
+function Open_in_newtab() {
+  if (delete_index != -1) {
+    let data = read_json();
+    let url = data[edit_index]["link"];
+    window.open(url, "_blank");
+  }
+}
+function toggle_dock() {
+  set_dock_style();
+  document.getElementById("dock").classList.toggle("bottom-dock-alt");
+  document.getElementById("dock").classList.toggle("bottom-dock");
+  load_buttons();
 }
 
 function open_edit() {

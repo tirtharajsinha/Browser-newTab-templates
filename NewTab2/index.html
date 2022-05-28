@@ -123,11 +123,17 @@
         <!-- initially hidden right-click context menu for dock elements -->
         <div class="hide" id="rmenu">
             <ul>
-                <li>
-                    <i class="fa fa-trash" onclick="remove_button()"> Remove</i>
+                <li onclick="Open_in_newtab()">
+                    <i class="fa fa-external-link"> Open in NewTab</i>
                 </li>
-                <li>
-                    <i class="fa fa-edit" onclick="edit_button()"> Edit</i>
+                <li onclick="toggle_dock()">
+                    <i class="fa fa-paint-brush"> Change Dock Style</i>
+                </li>
+                <li onclick="remove_button()">
+                    <i class="fa fa-trash"> Remove</i>
+                </li>
+                <li onclick="edit_button()">
+                    <i class="fa fa-edit"> Edit</i>
                 </li>
             </ul>
         </div>
@@ -224,39 +230,56 @@
     <script src="widget.js"></script>
     <script src="script.js"></script>
     <script>
-        document.querySelector(".wallbtn").addEventListener('click',e =>{
+        var curwallpaper = getcurbg();
+        if (curwallpaper != "null") {
+            changebg(curwallpaper);
+        }
+        document.querySelector(".wallbtn").addEventListener('click', e => {
             document.querySelector(".wallpaperGalary").classList.add("walldisplay");
-            document.querySelector(".wallbtn").style.display="none";
+            document.querySelector(".wallbtn").style.display = "none";
             createwallsettings();
         })
-        document.querySelector(".closewallbtn").addEventListener('click',e =>{
+        document.querySelector(".closewallbtn").addEventListener('click', e => {
             document.querySelector(".wallpaperGalary").classList.remove("walldisplay");
-            document.querySelector(".wallbtn").style.display="flex";
+            document.querySelector(".wallbtn").style.display = "flex";
         })
-        function createwallsettings(){
-            var wallpaperlist=["dynamic1.mp4","dynamic2.mp4","dynamic3.mp4","dynamic4.mp4"];
-            let wallpreview=``;
-            wallpaperlist.forEach(wallpaper => {
-                wallpreview+=`<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
+        function createwallsettings() {
+            var wallpaperlist = ["dynamic1.mp4", "dynamic2.mp4", "dynamic3.mp4", "dynamic4.mp4"];
+            var wallpapercount = 8;
+            let wallpreview = ``;
+            for (var i = 1; i <= wallpapercount; i++) {
+                var wallpaper = "dynamic" + i + ".mp4";
+                wallpreview += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
             <source src="wallpapers/${wallpaper}" type="video/mp4">
         </video>`
 
-            });
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML=wallpreview;
+            }
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
 
         }
-        function changebg(wallurl){
-            let source=document.querySelector("#bgsource");
-            let video=document.querySelector(".wrapped-bg");
-            source.setAttribute('src', "wallpapers/"+wallurl);
+        function changebg(wallurl) {
+            let source = document.querySelector("#bgsource");
+            let video = document.querySelector(".wrapped-bg");
+            source.setAttribute('src', "wallpapers/" + wallurl);
             video.load();
             console.log(wallurl);
-            document.querySelector(".wallpaperGalary").classList.remove("walldisplay");
-            document.querySelector(".wallbtn").style.display="flex";
-        }
-        
+            setcurbg(wallurl);
 
-        
+        }
+        function getcurbg() {
+            if (!hasLocalStorage) return;
+            return localStorage.getItem("currentDynamicWallpaper");
+        }
+        function setcurbg(path) {
+            if (!hasLocalStorage) return;
+            localStorage.setItem("currentDynamicWallpaper", path);
+        }
+        function hasLocalStorage() {
+            return typeof window.localStorage !== 'undefined';
+        }
+
+
+
     </script>
     <!-- <script src="soccer_api.js"></script> -->
 
