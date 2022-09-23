@@ -2,7 +2,7 @@ let delete_index = -1;
 let edit_index = -1;
 let walltime = 0;
 let current_fevi = "";
-
+const dock_icon_limit=11;
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
@@ -225,16 +225,36 @@ function read_json(newtabdata = "newtabdata", itemjsonarray = "") {
     if (itemjsonarray == "") {
       itemjsonarray = [
         {
-          icon: "https://api.faviconkit.com/github.com/356",
-          link: "https://github.com",
+          icon: "https://github.com/favicon.ico",
+          link: "https://github.com/tirtharajsinha",
         },
         {
           icon: "https://api.faviconkit.com/youtube.com/356",
           link: "https://youtube.com",
         },
         {
-          icon: "https://api.faviconkit.com/google.com/356",
+          icon: "https://besticon.herokuapp.com/icon?size=80..120..200&url=drive.google.com",
           link: "https://google.com",
+        },
+        {
+          icon: "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico",
+          link: "https://mail.google.com/mail/u/0/#inbox",
+        },
+        {
+          icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/2295px-Google_Drive_icon_%282020%29.svg.png",
+          link: "https://drive.google.com/drive/my-drive",
+        },
+        {
+          icon: "https://besticon.herokuapp.com/icon?size=80..120..200&url=instagram.com",
+          link: "https://instagram.com",
+        },
+        {
+          icon: "https://tirtharajsinha.github.io/favicon.png",
+          link: "https://tirtharajsinha.github.io/",
+        },
+        {
+          icon: "https://www.herokucdn.com/favicons/favicon.ico",
+          link: "https://www.heroku.com/",
         },
       ];
     }
@@ -262,7 +282,7 @@ function close_prompt() {
 function add_button() {
   newdata = packing_data();
   mydata = read_json();
-  if (mydata.length >= 8) {
+  if (mydata.length >= dock_icon_limit) {
     mydata.pop();
   }
   mydata.push(newdata);

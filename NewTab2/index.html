@@ -8,21 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="widgetStyle.css">
-    <link rel="shortcut icon" href="newtab.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="contextmenu.js"></script>
 
     <link rel="stylesheet" href="contextmenu.css" />
 
-    <title>MicroSoft Edge</title>
+    <title>New Tab</title>
 </head>
 
 
 <body>
     <div class="wrap-all" id="wrap-all">
-        <!-- <img class="wrapped-bg" id="wrapped-bg" src="wallpapers/win11-dyna.gif" alt="" /> -->
-        <video autoplay playsinline muted style="pointer-events: none;" class="wrapped-bg">
-            <source id="bgsource" src="wallpapers/dynamic4.mp4" type="video/mp4">
+        <img class="wrapped-bg" id="static-bg" src="wallpapers\wallpaper1.jpg" alt="" style="display:none;" />
+        <video autoplay playsinline muted style="pointer-events: none;" class="wrapped-bg" id="dynamic-bg"
+            style="display:none;">
+            <source id="bgsource" src="" type="video/mp4">
         </video>
         <div class="container">
             <!-- search bar -->
@@ -218,10 +219,10 @@
 
         </div>
     </div>
-    <div class="wallbtn"><i class="fa fa-image"></i></div>
+    <div class="wallbtn"><i class="fa fa-moon-o"></i></div>
     <div class="wallpaperGalary">
         <div class="galary">
-            <div class="closewallbtn"><i class="fa fa-close"></i></div>
+            <div class="closewallbtn" onclick="closewallpreview()"><i class="fa fa-close"></i></div>
             <div class="wallpreview"></div>
         </div>
     </div>
@@ -239,14 +240,26 @@
             document.querySelector(".wallbtn").style.display = "none";
             createwallsettings();
         })
-        document.querySelector(".closewallbtn").addEventListener('click', e => {
+        function closewallpreview() {
             document.querySelector(".wallpaperGalary").classList.remove("walldisplay");
             document.querySelector(".wallbtn").style.display = "flex";
-        })
+        }
         function createwallsettings() {
             var wallpaperlist = ["dynamic1.mp4", "dynamic2.mp4", "dynamic3.mp4", "dynamic4.mp4"];
-            var wallpapercount = 8;
-            let wallpreview = ``;
+            var wallpapercount = 10;
+            var staticWallpapercount = 2;
+            let wallpreview = `<h3>Static Wallpapers</h3>`;
+
+
+            for (var i = 1; i <= staticWallpapercount; i++) {
+                var wallpaper = "wallpaper" + i + ".jpg";
+                wallpreview += `
+                <img class="wrapped-bg-pre" src="wallpapers/${wallpaper}" alt="" onclick="changebg('${wallpaper}')" />
+                `
+
+            }
+            wallpreview += `<h3>Dynamic Wallpapers</h3>`
+
             for (var i = 1; i <= wallpapercount; i++) {
                 var wallpaper = "dynamic" + i + ".mp4";
                 wallpreview += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
@@ -254,16 +267,38 @@
         </video>`
 
             }
+
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
 
         }
         function changebg(wallurl) {
-            let source = document.querySelector("#bgsource");
-            let video = document.querySelector(".wrapped-bg");
-            source.setAttribute('src', "wallpapers/" + wallurl);
-            video.load();
             console.log(wallurl);
+            if (wallurl.includes("jpg")) {
+
+                document.getElementById("static-bg").style.display = "block";
+                document.getElementById("dynamic-bg").style.display = "none";
+                document.getElementById("static-bg").src = `wallpapers/${wallurl}`
+
+            }
+            else {
+                document.getElementById("static-bg").style.display = "none";
+                document.getElementById("dynamic-bg").style.display = "block";
+                while (true) {
+                    if (document.getElementById("dynamic-bg").style.display == "block") {
+                        let source = document.querySelector("#bgsource");
+                        let video = document.querySelector("#dynamic-bg");
+                        source.src = `wallpapers/${wallurl}`;
+                        video.load();
+                        break;
+                    }
+
+                }
+
+
+            }
+            closewallpreview();
             setcurbg(wallurl);
+
 
         }
         function getcurbg() {
@@ -272,6 +307,7 @@
         }
         function setcurbg(path) {
             if (!hasLocalStorage) return;
+
             localStorage.setItem("currentDynamicWallpaper", path);
         }
         function hasLocalStorage() {

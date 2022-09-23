@@ -47,6 +47,30 @@ function fetchsuggestions(query) {
     });
 }
 
+function fetchsuggestions_ddg(query) {
+  // var suggestURL = `https://www.google.com/complete/search?client=firefox&q=${query}`;
+  var suggestURL = `https://api.duckduckgo.com/?q=${query}&format=json`;
+  let headers = new Headers();
+
+  headers.append("Content-Type", "application/json");
+  headers.append("Accept", "application/json");
+
+  fetch(suggestURL, {
+    mode: "no-cors",
+  })
+    .then((response) => console.log(response))
+    .then((response) => response.json())
+    .then((data) => {
+      // formatsuggetions(data)
+      console.log(data);
+    })
+    .catch(function (error) {
+      console.log("can't fetch ! check connection");
+      console.log(error);
+      document.getElementById("suggetion-box").innerHTML = "";
+    });
+}
+
 function formatsuggetions(data) {
   data = data.query.search;
   let str = "";
