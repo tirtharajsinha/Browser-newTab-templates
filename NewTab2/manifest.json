@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "tabber",
+    "version": "1.0",
+    "description": "The new tab page",
+    "author": "Tirtharaj Sinha",
+    "chrome_url_overrides" : {
+      "newtab": "index.html"
+    },
+    "host_permissions": ["*://*/*"],
+    "permissions": [
+      "storage"
+    ],
+    "icons": {
+      "16": "favicon.png",
+      "128": "favicon.png"
+    }
+  }

@@ -175,6 +175,8 @@ function get_dock_style() {
     return localStorage.getItem("dockstyle");
   }
 }
+
+
 function set_dock_style() {
   if (localStorage.getItem("dockstyle") == "bottom-dock-alt") {
     localStorage.setItem("dockstyle", "bottom-dock");
@@ -200,9 +202,7 @@ function load_buttons() {
       i +
       ")' style='animation-delay: " +
       0.1 * i +
-      "s;'><a href='" +
-      link +
-      " ' class='test'><img src='" +
+      `s;'><a onclick='iconclick("${link}","${icon}")' class='test'><img src='` +
       icon +
       "' alt='[]'/></a>" +
       menu +
@@ -220,6 +220,9 @@ function load_buttons() {
   }
 }
 
+function iconclick(url,icon){
+  window.location=url;
+}
 function read_json(newtabdata = "newtabdata", itemjsonarray = "") {
   if (localStorage.getItem(newtabdata) == null) {
     if (itemjsonarray == "") {
@@ -338,6 +341,15 @@ function Open_in_newtab() {
     let url = data[edit_index]["link"];
     window.open(url, "_blank");
   }
+}
+function copy_path(){
+  if (delete_index != -1) {
+    let data = read_json();
+    let url = data[edit_index]["link"];
+    navigator.clipboard.writeText(url);
+
+  }
+  
 }
 function toggle_dock() {
   set_dock_style();

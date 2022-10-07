@@ -211,7 +211,7 @@ body {
 #dock .base {
   position: relative;
   width: 550px;
-  border-bottom: 50px solid rgba(255, 255, 255, 0.467);
+  border-bottom: 50px solid rgba(255, 255, 255, 0.171);
   backdrop-filter: blur(3px);
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
@@ -233,7 +233,7 @@ body {
   display: none;
 }
 .bottom-dock-alt ul {
-  background: rgba(255, 255, 255, 0.405);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(3px);
   padding: 10px;
   border-radius: 20px;
@@ -331,8 +331,19 @@ body {
   right: -300px;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
-  border-bottom: 5px solid rgb(51, 120, 223);
+  /* border-bottom: 5px solid rgb(51, 120, 223); */
   transition: all 0.3s ease;
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+}
+.entry .foo{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: rgb(51, 120, 223);
+  height: 5px;
 }
 
 .entry .head {
@@ -382,8 +393,20 @@ body {
   right: -300px;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
-  border-bottom: 5px solid rgb(51, 223, 36);
+  /* border-bottom: 5px solid rgb(51, 223, 36); */
   transition: all 0.3s ease;
+  overflow: hidden;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.edit .foo{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: rgb(51, 223, 36);
+  height: 5px;
 }
 
 .edit .head {
@@ -444,7 +467,7 @@ body {
   padding-left: 10px;
   text-align: left;
   transition: all 0.2s ease;
-  z-index: 100;
+  z-index: 8;
   height: 90px;
   width: 250px;
   background: linear-gradient(to bottom right, #444444bd 0%, transparent 50%);
@@ -477,11 +500,9 @@ body {
 .forweather {
   width: 100%;
   height: 0px;
-  background: linear-gradient(
-    to bottom right,
-    rgba(59, 59, 59, 0.925) 0%,
-    rgba(95, 95, 95, 0.904) 100%
-  );
+  background: rgba(255, 255, 255, 0.566);
+  /* background: transparent; */
+  /* backdrop-filter: blur(5px); */
   display: block;
   border-radius: 20px;
   transition: all 0.3s ease;
@@ -497,14 +518,17 @@ body {
   margin-top: 0px;
   margin-bottom: 0px;
   overflow: hidden;
+  /* backdrop-filter: blur(5px); */
 }
 
 .forweather .wday {
   width: 50px;
   height: 100%;
-  background: linear-gradient(to bottom, #3b3b3bc2 0%, #a3a3a3bd 100%);
+  background: transparent;
   margin: auto;
   border-radius: 10px;
+  color: rgb(53, 53, 53);
+  /* backdrop-filter:blur(10px); */
 }
 
 .wday {
@@ -524,7 +548,7 @@ body {
   text-align: center;
   font-size: 16px;
   font-weight: 600;
-  color: white;
+  color: rgb(48, 48, 48);
   font-family: "Poppins", sans-serif;
 }
 
@@ -535,15 +559,16 @@ body {
   width: 80%;
   height: 30px;
   border: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgba(73, 73, 73, 0.345);
   display: inline;
-  font-size: 14px;
-  font-weight: 100;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
   background-color: transparent;
   outline: none;
   padding-left: 10px;
   padding-bottom: 0px;
-  color: white;
+  color: rgba(49, 49, 49, 0.769);
 }
 
 .moreweather {
@@ -558,14 +583,14 @@ body {
   text-align: center;
   font-size: 18px;
   font-weight: 300;
-  color: white;
+  color: rgb(52, 52, 52);
   border-radius: 6px;
-  background: linear-gradient(to left, #3b3b3bc2 0%, #777777bd 100%);
+  background: linear-gradient(to left, #bcbcbcbd 0%, #e0e0e0bd 100%);
   transition: all 0.4s ease;
 }
 
 .moreweather:hover {
-  background: linear-gradient(to left, #3b3b3bc2 0%, #3b3b3bc2 100%);
+  background: linear-gradient(to left, #8b8b8bbd 0%, #c1c1c1bd 100%);
 }
 
 .wallbtn {
@@ -603,14 +628,13 @@ body {
 .wallpaperGalary .galary {
   width: 70%;
   height: 70%;
-  background-color: rgba(255, 255, 255, 0.509);
-  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.317);
+  backdrop-filter: blur(7px);
   position: relative;
   border-radius: 15px;
 }
 
-
-.wallpaperGalary .galary h3{
+.wallpaperGalary .galary h3 {
   font-size: 20px;
   letter-spacing: 1px;
   font-weight: 600;
@@ -629,7 +653,7 @@ body {
   cursor: pointer;
 }
 
-.wallpaperGalary .galary .wrapped-bg-pre{
+.wallpaperGalary .galary .wrapped-bg-pre {
   width: 250px;
   height: 150px;
   object-fit: cover;
@@ -670,3 +694,5 @@ body {
   width: 50px;
   height: 50px;
 }
+
+

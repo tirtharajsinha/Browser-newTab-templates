@@ -7,7 +7,7 @@ const delay = 10000; // anti-rebound for 500ms
 let lastExecution = 0;
 let load_permission = true;
 
-touchleft();
+// touchleft();
 
 if (typeof api_keys === "undefined") {
   console.log("api keys not found! You can't use features which uses api");

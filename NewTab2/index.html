@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="contextmenu.css" />
 
-    <title>New Tab</title>
+    <title>Tabber</title>
 </head>
 
 
@@ -64,6 +64,7 @@
                 <input type="url" name="url" id="entry_url" placeholder="Put url" />
                 <input type="url" name="icourl" id="icon_url" placeholder="Put icon url" />
                 <button onclick="add_button()">Submit</button>
+                <div class="foo"></div>
             </div>
             <div class="edit" id="edit-promt">
                 <div class="head">
@@ -73,6 +74,7 @@
                 <input type="url" name="url" id="edit_url" />
                 <input type="url" name="icourl" id="edit_icon_url" />
                 <button onclick="update_button()">Submit</button>
+                <div class="foo"></div>
             </div>
 
 
@@ -127,6 +129,9 @@
                 <li onclick="Open_in_newtab()">
                     <i class="fa fa-external-link"> Open in NewTab</i>
                 </li>
+                <li onclick="copy_path()">
+                    <i class="fa fa-copy"> Copy path</i>
+                </li>
                 <li onclick="toggle_dock()">
                     <i class="fa fa-paint-brush"> Change Dock Style</i>
                 </li>
@@ -143,12 +148,12 @@
     </div>
 
     <!-- added widget promt -->
-    <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
+    <!-- <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
         <i class="fa fa-ellipsis-v"> </i>
         <i class="fa fa-ellipsis-v" style="margin-left: 3px;margin-right: 3px;"> </i>
         <i class="fa fa-ellipsis-v"> </i>
     </div>
-    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div>
+    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div> -->
     <div class="widget" id="widget">
         <div class="w-head">
             <h2>Widget Panel</h2>
@@ -226,6 +231,10 @@
             <div class="wallpreview"></div>
         </div>
     </div>
+
+    
+
+    <script src="data.js"></script>
     <script src="autosuggest.js"></script>
     <script src="api_key.js"></script>
     <script src="widget.js"></script>
@@ -245,30 +254,28 @@
             document.querySelector(".wallbtn").style.display = "flex";
         }
         function createwallsettings() {
-            var wallpaperlist = ["dynamic1.mp4", "dynamic2.mp4", "dynamic3.mp4", "dynamic4.mp4"];
-            var wallpapercount = 10;
-            var staticWallpapercount = 2;
-            let wallpreview = `<h3>Static Wallpapers</h3>`;
+            var wallpapercount = allwallpaper["dynamicwallpapercount"];
+            var staticWallpapercount = allwallpaper["staticwallpapercount"];
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = `<h3>Static Wallpapers</h3>`;
 
 
             for (var i = 1; i <= staticWallpapercount; i++) {
                 var wallpaper = "wallpaper" + i + ".jpg";
-                wallpreview += `
+                document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
                 <img class="wrapped-bg-pre" src="wallpapers/${wallpaper}" alt="" onclick="changebg('${wallpaper}')" />
                 `
-
             }
-            wallpreview += `<h3>Dynamic Wallpapers</h3>`
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `<h3>Dynamic Wallpapers</h3>`
 
             for (var i = 1; i <= wallpapercount; i++) {
                 var wallpaper = "dynamic" + i + ".mp4";
-                wallpreview += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
+                document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
             <source src="wallpapers/${wallpaper}" type="video/mp4">
         </video>`
 
             }
 
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
+            // document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
 
         }
         function changebg(wallurl) {

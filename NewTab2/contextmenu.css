@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,400&display=swap");
+
 .show {
   z-index: 1000;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.728);
-  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.534);
+  backdrop-filter: blur(5px);
   padding: 0px;
   border-radius: 15px;
   display: block;
@@ -13,6 +16,8 @@
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
   transition: all 0.2s ease;
   overflow: hidden;
+  font-family: 'Lobster', cursive; 
+  padding: 10px;
 }
 
 .hide {
@@ -23,29 +28,37 @@
   list-style: none;
   width: auto;
   font-size: 20px;
-  color: rgba(63, 63, 63, 0.831);
+  color: rgba(42, 42, 42, 0.831);
   letter-spacing: 1px;
-  font-weight: 500;
+  /* font-weight: 500; */
   padding: 10px;
   padding-right: 20px;
   padding-left: 20px;
   border: none;
   transition: all 0.2s ease;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 10px;
+}
+.show li i{
+  font-weight: 600;
+  /* font-family: 'Poppins', sans-serif; */
+  letter-spacing: 1px;
+  font-size: 18px;
 }
 
-.show li:first-child {
+/* .show li:first-child {
   padding-top: 20px;
 }
 
 .show li:last-child {
   padding-bottom: 20px;
-}
+} */
 
 .show li:hover {
   border: none;
   background-color: rgba(255, 255, 255, 0.833);
-  color: rgba(96, 96, 96, 0.831);
+  color: rgb(53, 53, 53);
 }
 
 .show a:hover {
