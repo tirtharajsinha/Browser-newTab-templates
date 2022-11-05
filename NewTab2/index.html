@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="widgetStyle.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
@@ -148,21 +148,19 @@
     </div>
 
     <!-- added widget promt -->
-    <!-- <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
-        <i class="fa fa-ellipsis-v"> </i>
-        <i class="fa fa-ellipsis-v" style="margin-left: 3px;margin-right: 3px;"> </i>
-        <i class="fa fa-ellipsis-v"> </i>
+    <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
+        <i class="fad fa-comments-alt"></i>
     </div>
-    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div> -->
+    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div>
     <div class="widget" id="widget">
-        <div class="w-head">
+        <!-- <div class="w-head">
             <h2>Widget Panel</h2>
 
             <div class="panel">
                 <i class="fa fa-search"></i>
                 <i class="fa fa-gear"></i>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="sports">
             <h2>Sports Fixtures</h2>
 
@@ -192,7 +190,7 @@
         </div> -->
 
 
-        <div class="news" id="news">
+        <!-- <div class="news" id="news">
             <h2>Top News</h2>
             <div id="permission">
                 <label class="switch">
@@ -222,7 +220,7 @@
 
 
 
-        </div>
+        </div> -->
     </div>
     <div class="wallbtn"><i class="fa fa-moon-o"></i></div>
     <div class="wallpaperGalary">
@@ -239,6 +237,7 @@
     <script src="api_key.js"></script>
     <script src="widget.js"></script>
     <script src="script.js"></script>
+    <script src="fontawasome-pro/fontawasome5.15-pro.js"></script>
     <script>
         var curwallpaper = getcurbg();
         if (curwallpaper != "null") {
