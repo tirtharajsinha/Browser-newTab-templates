@@ -5,7 +5,7 @@ function responsiveChat(element) {
     <div class="chatbox">
         <textarea class="chatinput" type="text" placeholder="Write a message..."></textarea>
         <div class="chatbutton image"><i class="far fa-camera-alt"></i></div>
-        <div class=" chatbutton submit"><i class="far fa-paper-plane"></i></div>
+        <div class="chatbutton submit"><i class="far fa-paper-plane"></i></div>
     </div>
 </form>`
   );
@@ -25,7 +25,7 @@ function responsiveChat(element) {
   });
   $(".submit").click(function (event) {
     event.preventDefault();
-    var message = $('.chatinput').val();
+    var message = $(".chatinput").val();
     if ($(".chatinput").val()) {
       var d = new Date();
       var clock = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
@@ -41,14 +41,30 @@ function responsiveChat(element) {
         d.getFullYear() +
         "&nbsp;&nbsp;" +
         clock;
-    //   $(element + " div.messages").append(
-    //     '<div class="message"><div class="myMessage"><p>' +
-    //       message +
-    //       "</p><date>" +
-    //       currentDate +
-    //       "</date></div></div>"
-    //   );
-      responsiveChatPush(".chat","Tirtha","me",currentDate,message);
+      //   $(element + " div.messages").append(
+      //     '<div class="message"><div class="myMessage"><p>' +
+      //       message +
+      //       "</p><date>" +
+      //       currentDate +
+      //       "</date></div></div>"
+      //   );
+      data = {
+        sender: "Tirtha",
+        origin: "me",
+        date: currentDate,
+        message: message,
+      };
+      let index = addLocal(data);
+  
+      if (index != false) {
+        let index = document.getElementsByClassName("myMessage").length;
+        responsiveChatPush(".chat", index, data);
+      }
+      else{
+        console.log(index);
+        console.log("error in add");
+      }
+
       setTimeout(function () {
         $(element + " > span").addClass("spinner");
       }, 100);
@@ -66,119 +82,160 @@ function showLatestMessage(element) {
     .scrollTop($(".responsive-html5-chat .messages")[0].scrollHeight);
 }
 
-function responsiveChatPush(element, sender, origin, date, message) {
+function responsiveChatPush(element, index, chatdata) {
+  let id = chatdata["id"];
+  let sender = chatdata["sender"];
+  let origin = chatdata["origin"];
+  let date = chatdata["date"];
+  let message = chatdata["message"];
   var originClass;
-  message=urlify(message);
+  message = urlify(message);
   if (origin == "me") {
     originClass = "myMessage";
   } else {
     originClass = "fromThem";
   }
-  $(element + " .messages").append(
-    '<div class="message"><div class="' +
-      originClass +
-      '"><p>' +
-      message +
-      "</p><date><b>" +
-      sender +
-      "</b> " +
-      date +
-      "</date></div></div>"
-  );
+  if (origin == "me") {
+    $(element + " .messages").append(
+      `<div class="message">
+        <div oncontextmenu="chatcontext(${index},event)" class="${originClass} chatbubble">
+          <p>${message}</p>
+          <date><b>${sender}</b> ${date}</date>
+          <div class="removechat" onclick="removeLocal(${index},${id})"><i class="far fa-trash"></i></div>
+        </div>
+        
+      </div>`
+    );
+  } else {
+    $(element + " .messages").append(
+      `<div class="message">
+        <div class="${originClass} chatbubble">
+          <p>${message}</p>
+          <date><b>${sender}</b> ${date}</date>
+        </div>
+        
+      </div>`
+    );
+  }
+
   showLatestMessage(".responsive-html5-chat");
 }
 
 function urlify(text) {
-    var urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, function(url) {
-      return '<a href="' + url + '">' + url + '</a>';
-    })
-    // or alternatively
-    // return text.replace(urlRegex, '<a href="$1">$1</a>')
-  }
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, function (url) {
+    return '<a href="' + url + '">' + url + "</a>";
+  });
+  // or alternatively
+  // return text.replace(urlRegex, '<a href="$1">$1</a>')
+}
 
 /* Activating chatbox on element */
 responsiveChat(".responsive-html5-chat");
 
-/* Let's push some dummy data */
-responsiveChatPush(
-  ".chat",
-  "Kate",
-  "me",
-  "08.03.2017 14:30:7",
-  "It looks beautiful!"
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:31:22",
-  "It looks like the iPhone message box."
-);
-responsiveChatPush(
-  ".chat",
-  "Kate",
-  "me",
-  "08.03.2016 14:33:32",
-  "Yep, is this design responsive?"
-);
-responsiveChatPush(
-  ".chat",
-  "Kate",
-  "me",
-  "08.03.2016 14:36:4",
-  "By the way when I hover on my message it shows date."
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
+const localStorageVariable = "tabchatdata";
 
-responsiveChatPush(
-  ".chat",
-  "John Doe",
-  "you",
-  "08.03.2016 14:37:12",
-  "Yes, this is completely responsive."
-);
+function loadLocal() {
+  if (localStorage.getItem(localStorageVariable) == null) {
+    localStorage.setItem(localStorageVariable, JSON.stringify([]));
+    return [];
+  } else {
+    return JSON.parse(localStorage.getItem(localStorageVariable));
+  }
+}
+
+function clearLocal() {
+  localStorage.setItem(localStorageVariable, JSON.stringify([]));
+}
+function addLocal(data) {
+  console.log(data);
+
+  try {
+    let chatList = [];
+    let index = 0;
+    let primaryKey = 0;
+    if (localStorage.getItem(localStorageVariable) == null) {
+      data["id"] = primaryKey;
+      chatList.push(data);
+    } else {
+      chatList = JSON.parse(localStorage.getItem(localStorageVariable));
+      index = chatList.length;
+      if (index == 0) {
+        primaryKey = 0;
+      } else {
+        for (var i = 0; i < index; i++) {
+          if (chatList[i]["id"] > primaryKey) {
+            primaryKey = chatList[i]["id"];
+          }
+        }
+      }
+
+      data["id"] = primaryKey + 1;
+      chatList.push(data);
+    }
+    localStorage.setItem(localStorageVariable, JSON.stringify(chatList));
+    return index+1;
+  } catch {
+    console.log("error");
+    return false;
+  }
+}
+function removeLocal(idx, id) {
+  console.log(id);
+  try {
+    let chatList = JSON.parse(localStorage.getItem(localStorageVariable));
+    let index = chatList.length;
+    for (var i = 0; i < index; i++) {
+      if (chatList[i]["id"] == id) {
+        console.log(chatList[i]);
+        let popped = chatList.splice(i, 1);
+        console.log(popped["message"]);
+        break;
+      }
+    }
+
+    localStorage.setItem(localStorageVariable, JSON.stringify(chatList));
+    document.getElementsByClassName("message")[idx + 1].style.display = "none";
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/* Let's push some dummy data */
+// responsiveChatPush(
+//   ".chat",
+//   "Kate",
+//   "me",
+//   "08.03.2017 14:30:7",
+//   "It looks beautiful!"
+// );
+welcome_data = {
+  id: -1,
+  sender: "QuickChat",
+  origin: "you",
+  date: "08.03.2022 14:30:7",
+  message: "Welcome to QuickNote<br>Add anything you want to save for later.",
+};
+responsiveChatPush(".chat", 0, welcome_data);
+
+function chatcontext(id, e) {
+  e.preventDefault();
+  console.log(id);
+  let chat = document.getElementsByClassName("myMessage")[id];
+  chat.style.borderBottomLeftRadius = "0px";
+  chat.style.borderTopLeftRadius = "0px";
+  console.log(chat.innerHTML);
+  // chat.classList.toggle("moveleft");
+  chat.querySelector(".removechat").classList.toggle("moveright");
+}
+function restoreChats() {
+  let chatlist = loadLocal();
+  for (var i = 0; i < chatlist.length; i++) {
+    responsiveChatPush(".chat", i, chatlist[i]);
+  }
+}
+restoreChats();
 
 /* DEMO */
 if (parent == top) {

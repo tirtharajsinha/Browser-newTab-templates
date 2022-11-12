@@ -70,8 +70,45 @@ form.chat .message {
   padding: 0.5%;
 }
 
-form.chat .message p {
+form.chat .myMessage p {
   margin: 0;
+  padding: 10px 25px;
+  background: #252b3d;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+form.chat .fromThem p{
+  background: none;
+  border-radius: 0px;
+  padding: 10px 25px;
+  background: #dddddd;
+  border-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 0px;
+}
+
+.removechat{
+  display: flex;
+  align-items:flex-start;
+  justify-content: space-around;
+  flex-direction: column;
+  position: absolute;
+  top:0;
+  left: 0;
+  height: 100%;
+  width: 40px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding-left: 10px;
+  color: black;
+  font-size: 20px;
+  opacity: 0;
+  z-index: 0;
+  cursor: pointer;
+  
 }
 
 form.chat .myMessage,
@@ -99,16 +136,14 @@ form.chat .message:hover date {
 form.chat .myMessage,
 .fromThem {
   position: relative;
-  padding: 10px 20px;
   color: white;
-  border-radius: 20px;
-  border-bottom-right-radius: 0px;
   clear: both;
   font: 400 15px "Open Sans", sans-serif;
+  /* z-index: -1; */
 }
 
 form.chat .myMessage {
-  background: #252b3d;
+  /* overflow: hidden; */
   color: rgb(255, 255, 255);
   float: right;
   clear: both;
@@ -117,12 +152,10 @@ form.chat .myMessage {
 }
 
 form.chat .fromThem {
-  background: #dddddd;
+  /* background: #dddddd; */
   color: rgb(47, 47, 47);
   float: left;
   clear: both;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 0px;
 }
 
 form.chat date {
@@ -299,3 +332,14 @@ a.article {
   border-radius: 25px;
   font: 400 15px "Open Sans", sans-serif;
 }
+
+
+
+
+.moveright{
+  transform: translateX(-20px);
+  background-color: #ffffff;
+  backdrop-filter: blur(10px);
+  opacity: 1;
+}
+
