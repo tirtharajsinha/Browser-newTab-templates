@@ -5,13 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="widgetStyle.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="contextmenu.js"></script>
-
+    <link rel="stylesheet" href="chatwidget.css">
     <link rel="stylesheet" href="contextmenu.css" />
 
     <title>Tabber</title>
@@ -153,6 +153,12 @@
     </div>
     <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div>
     <div class="widget" id="widget">
+        <div class="iphone">
+            <div class="border">
+                <div class="responsive-html5-chat">
+                </div>
+            </div>
+        </div>
         <!-- <div class="w-head">
             <h2>Widget Panel</h2>
 
@@ -188,7 +194,7 @@
                 <div class="league">spanish La liga</div>
             </div>
         </div> -->
-
+        
 
         <!-- <div class="news" id="news">
             <h2>Top News</h2>
@@ -220,7 +226,7 @@
 
 
 
-        </div> -->
+    </div> -->
     </div>
     <div class="wallbtn"><i class="fa fa-moon-o"></i></div>
     <div class="wallpaperGalary">
@@ -230,13 +236,14 @@
         </div>
     </div>
 
-    
+
 
     <script src="data.js"></script>
     <script src="autosuggest.js"></script>
     <script src="api_key.js"></script>
     <script src="widget.js"></script>
     <script src="script.js"></script>
+    <script src="chatwidget.js"></script>
     <script src="fontawasome-pro/fontawasome5.15-pro.js"></script>
     <script>
         var curwallpaper = getcurbg();

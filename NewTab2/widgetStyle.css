@@ -38,7 +38,7 @@
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
   backdrop-filter: blur(10px);
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 

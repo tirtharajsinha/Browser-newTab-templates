@@ -91,10 +91,12 @@ function widget_control(action, ele) {
     }
     document.getElementById("widget").style.transform = "translateX(0px)";
 
-    document.getElementById("c-close").style.display = "flex";
+    document.getElementById("c-open").style.display = "none";
+    document.querySelector(".wallbtn").style.display="none";
   } else {
     document.getElementById("widget").style.transform = "translateX(500px)";
-    document.getElementById("c-close").style.display = "none";
+    document.getElementById("c-open").style.display = "flex";
+    document.querySelector(".wallbtn").style.display="flex";
     widget_state = false;
   }
 }
