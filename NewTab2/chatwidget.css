@@ -43,7 +43,7 @@ form.chat .messages {
   overflow-y: scroll;
   position: relative;
   height: calc(100% - 70px);
-  width: 100%;
+  /* width: 100%; */
   margin: 10px 0px;
   margin-bottom: 20px;
   padding: 0 10px;
@@ -166,7 +166,7 @@ form.chat date {
   font-size: 14px;
   white-space: nowrap;
   vertical-align: middle;
-  color: #8b8b90;
+  color: #007bff;
   opacity: 1;
   z-index: 4;
 }
@@ -266,7 +266,7 @@ form.chat .fromThem date{
 
 form.chat .myMessage,
 form.chat .fromThem {
-  max-width: 90%;
+  min-width: 90%;
   /* transform: translateY(18px);
   -webkit-transform: translateY(18px); */
 }
