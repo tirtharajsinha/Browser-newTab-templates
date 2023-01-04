@@ -5,7 +5,7 @@ var newscurser = 0;
 let loaded_news = false;
 const delay = 10000; // anti-rebound for 500ms
 let lastExecution = 0;
-let load_permission = true;
+let load_permission = false;
 
 touchleft();
 

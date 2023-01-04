@@ -192,10 +192,23 @@ function load_buttons() {
     '<li style="animation-delay: ' +
     data.length * 0.1 +
     's;"> <img src = "plus.png"onclick = "open_prompt()"  /></li>';
-  let menu = '<div class="contexticon"><i class="fa fa-flag-o flag"></i></div>';
+  
   for (var i = data.length - 1; i >= 0; i--) {
     let link = data[i]["link"];
     let icon = data[i]["icon"];
+    let name=data[i]["name"]
+    if(name==undefined){
+      name="title";
+    }
+    let menu = `<div class="contexticon" 
+    style="
+      background:url('${icon}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;">
+        <div>${name}</div>
+    </div>`;
+
 
     dock =
       "<li oncontextmenu='stack_remove(" +
@@ -298,6 +311,7 @@ function add_button() {
 function packing_data() {
   let url = document.getElementById("entry_url").value;
   let icon = document.getElementById("icon_url").value;
+  let name = document.getElementById("icon_name").value;
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
   let data = {};
@@ -309,8 +323,10 @@ function packing_data() {
   }
 
   data["link"] = url;
+  data["name"]-name;
   document.getElementById("entry_url").value = "";
   document.getElementById("icon_url").value = "";
+  document.getElementById("icon_name").value="";
   return data;
 }
 
@@ -362,6 +378,10 @@ function open_edit() {
   let data = read_json();
   document.getElementById("edit_url").value = data[edit_index].link;
   document.getElementById("edit_icon_url").value = data[edit_index].icon;
+  if(data[edit_index].name!=undefined){
+    document.getElementById("edit_icon_name").value = data[edit_index].name;
+  }
+  
   document.getElementById("edit-promt").style.right = "20px";
 }
 
@@ -372,10 +392,12 @@ function close_edit() {
 function packing_edit_data(data) {
   let url = document.getElementById("edit_url").value;
   let icon = document.getElementById("edit_icon_url").value;
-  // console.log("send  " + url);
+  let name = document.getElementById("edit_icon_name").value;
+  console.log("send  " + name);
   let domain = url.split("/")[2].replace("www.", "");
 
   data["link"] = url;
+  data["name"]=name;
   if (icon == "") {
     data["icon"] =
       "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
@@ -384,6 +406,7 @@ function packing_edit_data(data) {
   }
   document.getElementById("edit_url").value = "";
   document.getElementById("edit_icon_url").value = "";
+  document.getElementById("edit_icon_name").value="";
   return data;
 }
 
