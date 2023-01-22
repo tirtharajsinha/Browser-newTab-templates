@@ -2,7 +2,7 @@ let delete_index = -1;
 let edit_index = -1;
 let walltime = 0;
 let current_fevi = "";
-const dock_icon_limit=11;
+const dock_icon_limit = 11;
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
@@ -192,13 +192,13 @@ function load_buttons() {
     '<li style="animation-delay: ' +
     data.length * 0.1 +
     's;"> <img src = "plus.png"onclick = "open_prompt()"  /></li>';
-  
+
   for (var i = data.length - 1; i >= 0; i--) {
     let link = data[i]["link"];
     let icon = data[i]["icon"];
-    let name=data[i]["name"]
-    if(name==undefined){
-      name="title";
+    let name = data[i]["name"]
+    if (name == undefined) {
+      name = "title";
     }
     let menu = `<div class="contexticon" 
     style="
@@ -233,8 +233,8 @@ function load_buttons() {
   }
 }
 
-function iconclick(url,icon){
-  window.location=url;
+function iconclick(url, icon) {
+  window.location = url;
 }
 function read_json(newtabdata = "newtabdata", itemjsonarray = "") {
   if (localStorage.getItem(newtabdata) == null) {
@@ -323,10 +323,10 @@ function packing_data() {
   }
 
   data["link"] = url;
-  data["name"]-name;
+  data["name"] = name;
   document.getElementById("entry_url").value = "";
   document.getElementById("icon_url").value = "";
-  document.getElementById("icon_name").value="";
+  document.getElementById("icon_name").value = "";
   return data;
 }
 
@@ -358,14 +358,14 @@ function Open_in_newtab() {
     window.open(url, "_blank");
   }
 }
-function copy_path(){
+function copy_path() {
   if (delete_index != -1) {
     let data = read_json();
     let url = data[edit_index]["link"];
     navigator.clipboard.writeText(url);
 
   }
-  
+
 }
 function toggle_dock() {
   set_dock_style();
@@ -378,10 +378,10 @@ function open_edit() {
   let data = read_json();
   document.getElementById("edit_url").value = data[edit_index].link;
   document.getElementById("edit_icon_url").value = data[edit_index].icon;
-  if(data[edit_index].name!=undefined){
+  if (data[edit_index].name != undefined) {
     document.getElementById("edit_icon_name").value = data[edit_index].name;
   }
-  
+
   document.getElementById("edit-promt").style.right = "20px";
 }
 
@@ -397,7 +397,7 @@ function packing_edit_data(data) {
   let domain = url.split("/")[2].replace("www.", "");
 
   data["link"] = url;
-  data["name"]=name;
+  data["name"] = name;
   if (icon == "") {
     data["icon"] =
       "https://besticon.herokuapp.com/icon?size=80..120..200&url=" + domain;
@@ -406,7 +406,7 @@ function packing_edit_data(data) {
   }
   document.getElementById("edit_url").value = "";
   document.getElementById("edit_icon_url").value = "";
-  document.getElementById("edit_icon_name").value="";
+  document.getElementById("edit_icon_name").value = "";
   return data;
 }
 
