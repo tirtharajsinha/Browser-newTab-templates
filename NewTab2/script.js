@@ -312,6 +312,8 @@ function packing_data() {
   let url = document.getElementById("entry_url").value;
   let icon = document.getElementById("icon_url").value;
   let name = document.getElementById("icon_name").value;
+  let base;
+  
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
   let data = {};
@@ -324,6 +326,11 @@ function packing_data() {
 
   data["link"] = url;
   data["name"] = name;
+  // data["base"]=base;
+  // toDataUrl(icon, function(myBase64) {
+  //   base=myBase64;
+  // });
+  // console.log(base);
   document.getElementById("entry_url").value = "";
   document.getElementById("icon_url").value = "";
   document.getElementById("icon_name").value = "";
@@ -395,6 +402,8 @@ function packing_edit_data(data) {
   let name = document.getElementById("edit_icon_name").value;
   console.log("send  " + name);
   let domain = url.split("/")[2].replace("www.", "");
+  let base;
+  
 
   data["link"] = url;
   data["name"] = name;
@@ -404,6 +413,10 @@ function packing_edit_data(data) {
   } else {
     data["icon"] = icon;
   }
+  // base = getBase64FromUrl(icon);
+  // console.log(base);
+
+  // data["base"]=base;
   document.getElementById("edit_url").value = "";
   document.getElementById("edit_icon_url").value = "";
   document.getElementById("edit_icon_name").value = "";
@@ -442,4 +455,17 @@ function updateplace(ele) {
   console.log("changed to" + read_json("weatherplace"));
   fetchcurweatherapi();
   fetchforweatherapi();
+}
+
+const getBase64FromUrl = async (url) => {
+  const data = await fetch(url);
+  const blob = await data.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob); 
+    reader.onloadend = () => {
+      const base64data = reader.result;   
+      resolve(base64data);
+    }
+  });
 }
