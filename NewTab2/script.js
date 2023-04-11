@@ -2,7 +2,7 @@ let delete_index = -1;
 let edit_index = -1;
 let walltime = 0;
 let current_fevi = "";
-const dock_icon_limit = 11;
+const dock_icon_limit = 100;
 load_buttons();
 fetchcurweatherapi();
 fetchforweatherapi();
@@ -188,10 +188,11 @@ function set_dock_style() {
 function load_buttons() {
   // document.getElementById("dock-but").innerHTML = "";
   let data = read_json();
-  let dock =
-    '<li style="animation-delay: ' +
-    data.length * 0.1 +
-    's;"> <img src = "plus.png"onclick = "open_prompt()"  /></li>';
+  // let dock =
+  //   '<li style="animation-delay: ' +
+  //   data.length * 0.1 +
+  //   's;"> <img src = "plus.png"onclick = "open_prompt()"  /></li>';
+  dock = "";
 
   for (var i = data.length - 1; i >= 0; i--) {
     let link = data[i]["link"];
@@ -211,11 +212,11 @@ function load_buttons() {
 
 
     dock =
-      "<li oncontextmenu='stack_remove(" +
+      "<li class='dock-elements' oncontextmenu='stack_remove(" +
       i +
       ")' style='animation-delay: " +
-      0.1 * i +
-      `s;'><a onclick='iconclick("${link}","${icon}")' class='test'><img src='` +
+      0.1 * 0 +
+      `s;' data-id=${i}><a onclick='iconclick("${link}","${icon}")' class='test'><img src='` +
       icon +
       "' alt='[]'/></a>" +
       menu +
@@ -224,7 +225,7 @@ function load_buttons() {
   }
   document.getElementById("dock").classList.add(get_dock_style());
   document.getElementById("dock-base").style.width = "600px";
-  document.getElementById("dock-but").innerHTML = dock;
+  document.getElementById("dock-items").innerHTML = dock;
 
   if (data.length - 4 > 0) {
     for (var i = 0; i < data.length - 4; i++) {
@@ -313,7 +314,7 @@ function packing_data() {
   let icon = document.getElementById("icon_url").value;
   let name = document.getElementById("icon_name").value;
   let base;
-  
+
   // console.log("send  " + url);
   let domain = url.split("/")[2].replace("www.", "");
   let data = {};
@@ -403,7 +404,7 @@ function packing_edit_data(data) {
   console.log("send  " + name);
   let domain = url.split("/")[2].replace("www.", "");
   let base;
-  
+
 
   data["link"] = url;
   data["name"] = name;
@@ -462,9 +463,9 @@ const getBase64FromUrl = async (url) => {
   const blob = await data.blob();
   return new Promise((resolve) => {
     const reader = new FileReader();
-    reader.readAsDataURL(blob); 
+    reader.readAsDataURL(blob);
     reader.onloadend = () => {
-      const base64data = reader.result;   
+      const base64data = reader.result;
       resolve(base64data);
     }
   });

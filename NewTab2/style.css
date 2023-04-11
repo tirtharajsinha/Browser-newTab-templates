@@ -201,6 +201,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 10;
+  gap: 20px;
 }
 .bottom-dock {
   display: block;
@@ -228,6 +229,15 @@ body {
   position: relative;
   bottom: -20px;
   list-style-type: none;
+  gap: 20px;
+}
+
+#dock ul #dock-items {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  list-style-type: none;
+  gap: 20px;
 }
 
 .bottom-dock-alt .base {
@@ -244,7 +254,7 @@ body {
   position: relative;
   transform: translateY(-50px) translateX(30px) scale(0.6);
   opacity: 0;
-  animation: wave 0.6s ease-in-out;
+  animation: wave 0s ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   display: flex;
@@ -267,20 +277,20 @@ body {
   /* display: none; */
   position: absolute;
   z-index: 8;
-  
+
   -webkit-transition: all 0.3s;
   background-color: white;
   color: rgb(39, 39, 47);
   text-align: center;
   border-radius: 5px;
-  transform: translateY(-100px) scale(0.0);
+  transform: translateY(-100px) scale(0);
   transition: all 0.1s ease;
   opacity: 0;
   overflow: hidden;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-#dock li .contexticon div{
+#dock li .contexticon div {
   background-color: rgba(255, 255, 255, 0.623);
   backdrop-filter: blur(10px);
   padding: 7px 10px;
@@ -289,7 +299,7 @@ body {
   letter-spacing: 1px;
   font-weight: 700;
 }
-#dock li .contexticon::after{
+#dock li .contexticon::after {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -316,23 +326,20 @@ body {
   /* reflection is supported by webkit only */
   -webkit-transition: all 0.3s;
   -webkit-transform-origin: 50% 100%;
-  margin-left: 10px;
-  margin-right: 10px;
-  /* transition: all 0.6s ease; */
+  transition: all 0.2s ease;
   cursor: pointer;
   z-index: 9;
 }
 
 #dock li:hover img {
   /* -webkit-transform: translateY(-20px); */
-  -webkit-transform: scale(1.4);
+  -webkit-transform: scale(1.3);
 }
 
 #dock li:hover .contexticon {
   /* display: block; */
   transform: translateY(-70px) scale(1);
   opacity: 1;
-  
 }
 
 #dock li:hover .flag {
@@ -341,14 +348,15 @@ body {
   right: -8px;
 }
 
-#dock li:hover + li img {
-  /* -webkit-transform: translateY(-10px); */
+/* #dock li:hover + li img {
+  -webkit-transform: translateY(-10px);
   -webkit-transform: scale(1.1);
 }
 
 #dock li:hover .prev img {
   -webkit-transform: scale(1.1);
 }
+*/
 
 .entry {
   width: 300px;
@@ -369,7 +377,7 @@ body {
   justify-content: center;
   z-index: 11;
 }
-.entry .foo{
+.entry .foo {
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -419,7 +427,6 @@ body {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1px;
-
 }
 
 .edit {
@@ -442,7 +449,7 @@ body {
   z-index: 11;
 }
 
-.edit .foo{
+.edit .foo {
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -737,5 +744,3 @@ body {
   width: 50px;
   height: 50px;
 }
-
-

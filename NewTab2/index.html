@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="widgetStyle.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js">
+    </script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="contextmenu.js"></script>
     <link rel="stylesheet" href="chatwidget.css">
     <link rel="stylesheet" href="contextmenu.css" />
@@ -41,13 +48,8 @@
             <div id="dock-container">
                 <div id="dock" onload="load_buttons()">
                     <ul id="dock-but">
-                        <li>
-                            <!-- <a href="http://github.com"><img src="https://api.faviconkit.com/github.com/356" /> -->
-                            </a>
-                            <div class="contexticon">
-                                <i class="fa fa-flag-o"></i>
-                            </div>
-                        </li>
+                        <div id="dock-items"></div>
+                        <li style="animation-delay:0s;"> <img src="plus.png" onclick="open_prompt()" /></li>
                     </ul>
                     <!-- dock plain/base div -->
                     <div class="base" id="dock-base"></div>
@@ -203,7 +205,7 @@
                 <div class="league">spanish La liga</div>
             </div>
         </div> -->
-        
+
 
         <!-- <div class="news" id="news">
             <h2>Top News</h2>
@@ -216,7 +218,7 @@
             </div>
             <hr>
 
-            <!-- <div class="news-block">
+            <div class="news-block">
                 <a href="https://www.zdnet.com/article/microsoft-makes-its-vs-code-tool-available-directly-in-the-browser/">
                     <img src="https://techcrunch.com/wp-content/uploads/2020/04/visual-studio-online-hero-1.png" alt="">
                     <p class="news-title">Microsoft makes its VS Code tool available directly in the browser.</p>
@@ -231,7 +233,7 @@
                 </div>
                 <hr>
 
-            </div> -->
+            </div>
 
 
 
@@ -256,7 +258,7 @@
     <script src="fontawasome-pro/fontawasome5.15-pro.js"></script>
     <script>
         var curwallpaper = getcurbg();
-        if (curwallpaper != "null") {
+        if (curwallpaper) {
             changebg(curwallpaper);
         }
         document.querySelector(".wallbtn").addEventListener('click', e => {
@@ -336,6 +338,37 @@
             return typeof window.localStorage !== 'undefined';
         }
 
+
+        $(function () {
+            $("#dock-items").sortable({
+                update: function (event, ui) {
+                    NotifyChange();
+                } //end update       
+            });
+        });
+
+        function NotifyChange() {
+            // document.querySelector(".saveNotiBox").style.right = "10px";
+            getIdsOfImages();
+        }
+        function getIdsOfImages() {
+            var values = [];
+            $('.dock-elements').each(function (index) {
+                values.push($(this).data("id"));
+            });
+            console.log(values);
+            let orderstr = values.join();
+            let data = read_json();
+            let newadata = [];
+            values.forEach(e => {
+                newadata.push(data[e]);
+                console.log(e);
+            });
+            console.log(newadata);
+            write_json(newadata);
+
+            // $.get("/saveapporder", { apporder: orderstr });
+        }
 
 
     </script>
