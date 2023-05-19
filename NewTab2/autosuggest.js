@@ -75,6 +75,9 @@ function formatsuggetions(data) {
   data = data.query.search;
   let str = "";
   let box = document.getElementById("suggetion-box");
+  if (document.getElementById("searchbar").value == "") {
+    return;
+  }
   box.innerHTML = "";
   for (var i = 0; i < 5; i++) {
     str =

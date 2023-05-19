@@ -6,17 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="widgetStyle.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.js"
-        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="node_modules\jquery\dist\jquery.min.js"></script>
 
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.10.2.js">
+    <link href="jquery-ui-1.10.4\themes\base\jquery-ui.css" rel="stylesheet">
+    <script src="jquery-ui-1.10.4\jquery-1.10.2.js">
     </script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="jquery-ui-1.10.4\ui\jquery-ui.js"></script>
     <script src="contextmenu.js"></script>
     <link rel="stylesheet" href="chatwidget.css">
     <link rel="stylesheet" href="contextmenu.css" />
@@ -257,6 +256,7 @@
     <script src="chatwidget.js"></script>
     <script src="fontawasome-pro/fontawasome5.15-pro.js"></script>
     <script>
+        window.history.pushState({}, document.title, "");
         var curwallpaper = getcurbg();
         if (curwallpaper) {
             changebg(curwallpaper);
@@ -275,6 +275,11 @@
             var staticWallpapercount = allwallpaper["staticwallpapercount"];
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = `<h3>Static Wallpapers</h3>`;
 
+            var topics = getwalltopics();
+            var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
+                <img class="wrapped-bg-pre randomwall" src="${randomimage}" alt="" onclick="changebg('${randomimage}')" />
+                `
 
             for (var i = 1; i <= staticWallpapercount; i++) {
                 var wallpaper = "wallpaper" + i + ".jpg";
@@ -304,6 +309,11 @@
                 document.getElementById("static-bg").src = `wallpapers/${wallurl}`
 
             }
+            else if (wallurl.includes("http")) {
+                document.getElementById("static-bg").style.display = "block";
+                document.getElementById("dynamic-bg").style.display = "none";
+                document.getElementById("static-bg").src = `${wallurl}`
+            }
             else {
                 document.getElementById("static-bg").style.display = "none";
                 document.getElementById("dynamic-bg").style.display = "block";
@@ -327,6 +337,17 @@
         }
         function getcurbg() {
             if (!hasLocalStorage) return;
+            return localStorage.getItem("currentDynamicWallpaper");
+        }
+        function getwalltopics() {
+            var topics = localStorage.getItem("walltopics");
+            if (topics) {
+                return topics;
+            }
+            else {
+                var topics = "river,space,astronaut";
+                return topics;
+            }
             return localStorage.getItem("currentDynamicWallpaper");
         }
         function setcurbg(path) {

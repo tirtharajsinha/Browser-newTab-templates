@@ -1,2 +1,4 @@
 api_key.js
 *.mp4
+/node_modules
+/jquery-ui-1.10.4

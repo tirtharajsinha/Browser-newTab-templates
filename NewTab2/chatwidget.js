@@ -55,12 +55,12 @@ function responsiveChat(element) {
         message: message,
       };
       let index = addLocal(data);
-  
+
       if (index != false) {
         let index = document.getElementsByClassName("myMessage").length;
         responsiveChatPush(".chat", index, data);
       }
-      else{
+      else {
         console.log(index);
         console.log("error in add");
       }
@@ -88,6 +88,14 @@ function responsiveChatPush(element, index, chatdata) {
   let origin = chatdata["origin"];
   let date = chatdata["date"];
   let message = chatdata["message"];
+
+  if (message.startsWith("/topics ")) {
+    var topics = message.replace("/topics ", "")
+    console.log(topics);
+    localStorage.setItem("walltopics", topics);
+  }
+
+
   var originClass;
   message = urlify(message);
   if (origin == "me") {
@@ -174,7 +182,7 @@ function addLocal(data) {
       chatList.push(data);
     }
     localStorage.setItem(localStorageVariable, JSON.stringify(chatList));
-    return index+1;
+    return index + 1;
   } catch {
     console.log("error");
     return false;
@@ -218,6 +226,15 @@ welcome_data = {
   message: "Welcome to QuickNote<br>Add anything you want to save for later.",
 };
 responsiveChatPush(".chat", 0, welcome_data);
+
+welcome1_data = {
+  id: -1,
+  sender: "QuickChat",
+  origin: "you",
+  date: "08.03.2022 14:30:7",
+  message: "To set wallpaper topics use /topics {YOUR-TOPIC,YOUR_TOPIC,...}",
+};
+responsiveChatPush(".chat", 0, welcome1_data);
 
 function chatcontext(id, e) {
   e.preventDefault();
