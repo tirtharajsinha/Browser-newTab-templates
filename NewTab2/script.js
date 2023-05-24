@@ -74,7 +74,7 @@ function change_wallpaper() {
 }
 function fetchforweatherapi() {
   let place = read_json("weatherplace");
-  let base = "http://api.openweathermap.org/data/2.5/forecast?q=";
+  let base = "http://api.openweathermap.org/data/2.5/forecast/?q=";
   let weatherapi = api_keys["weather"]["key"];
   if (weatherapi == "") {
     return NaN;
@@ -91,25 +91,34 @@ function fetchforweatherapi() {
 function process_forweather_data(data) {
   let date = new Date();
   var d = date.getDay() + 1;
+  let dateday = date.getDate();
 
   var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   let forcustdata = data["list"];
   var count = 0;
   let day = "";
   let list = document.getElementsByClassName("wday");
-  for (var i = 7; i < 24; i += 8) {
+  for (var i = 0; i < forcustdata.length; i++) {
     day = forcustdata[i];
-    let temp = day["main"]["temp"];
+    let fordate = new Date(day.dt * 1000);
+    console.log(fordate);
+    if (fordate.getDate() == dateday) {
+      continue;
+    }
+    if (count == 3) {
+      break;
+    }
+    let temp = Number((day["main"]["temp"]).toFixed(0));
     let icon = day["weather"][0]["icon"];
-    d = d % 7;
-    let wd = weekday[d];
+
+    let wd = weekday[fordate.getDay()];
 
     list[count].getElementsByClassName("forweekday")[0].innerHTML = wd;
     list[count].getElementsByClassName("foricon")[0].src =
       "http://openweathermap.org/img/wn/" + icon + "@2x.png";
     list[count].getElementsByClassName("fortemp")[0].innerHTML = temp;
     count++;
-    d++;
+    dateday = fordate.getDate();
   }
 }
 
@@ -133,10 +142,12 @@ function fetchcurweatherapi() {
 function process_curweather_data(forcustdata) {
   day = forcustdata;
   console.log("current weather data");
-  let temp = day["main"]["temp"];
+  let temp = Number((day["main"]["temp"]).toFixed(0));
   let icon = day["weather"][0]["icon"];
   console.log(temp + "" + icon);
-  document.getElementById("place-entry").value = read_json("weatherplace");
+  var curcity = read_json("weatherplace");
+  document.getElementById("place-entry").value = curcity;
+  document.getElementById("curcity").innerHTML = "in " + curcity;
   document.getElementById("curtemp").innerHTML = temp;
   document.getElementById("curweather-icon").src =
     "http://openweathermap.org/img/wn/" + icon + "@2x.png";

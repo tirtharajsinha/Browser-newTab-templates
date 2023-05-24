@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
 
 /* use
 font-family: 'Dancing Script', cursive;
@@ -519,7 +521,7 @@ body {
   transition: all 0.2s ease;
   z-index: 8;
   height: 90px;
-  width: 250px;
+  width: auto;
   background: linear-gradient(to bottom right, #444444bd 0%, transparent 50%);
 }
 
@@ -527,7 +529,7 @@ body {
   display: flex;
   margin: auto;
   transition: all 0.2s ease;
-  justify-content: center;
+  justify-content: left;
   width: 100%;
   text-shadow: 2px 2px 3px rgb(122, 115, 115);
 }
@@ -535,20 +537,28 @@ body {
 .curweather-text {
   display: inline;
   font-size: 35px;
-  font-family: "Lobster", cursive;
+  font-family: "Rajdhani", sans-serif;
   color: white;
   mix-blend-mode: darken;
   padding-top: 15px;
+  white-space: nowrap;
 }
 
 #curweather-icon {
-  width: 80px;
+  width: 70px;
   height: auto;
   display: inline;
 }
 
+#curcity {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
 .forweather {
-  width: 100%;
+  width: 250px;
   height: 0px;
   background: rgba(255, 255, 255, 0.566);
   /* background: transparent; */
@@ -579,6 +589,7 @@ body {
   border-radius: 10px;
   color: rgb(53, 53, 53);
   /* backdrop-filter:blur(10px); */
+  font-family: "Rajdhani", sans-serif;
 }
 
 .wday {
@@ -596,10 +607,10 @@ body {
 .wday p,
 .forweekday {
   text-align: center;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 900;
   color: rgb(48, 48, 48);
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 #place-entry {
@@ -631,12 +642,13 @@ body {
   text-decoration: none;
   padding: 5px;
   text-align: center;
-  font-size: 18px;
-  font-weight: 300;
+  font-size: 16px;
+  font-weight: 500;
   color: rgb(52, 52, 52);
   border-radius: 6px;
   background: linear-gradient(to left, #bcbcbcbd 0%, #e0e0e0bd 100%);
   transition: all 0.4s ease;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .moreweather:hover {
