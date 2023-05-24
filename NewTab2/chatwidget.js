@@ -58,7 +58,8 @@ function responsiveChat(element) {
 
       if (index != false) {
         let index = document.getElementsByClassName("myMessage").length;
-        responsiveChatPush(".chat", index, data);
+        // responsiveChatPush(".chat", index, data);
+        restoreChats();
       }
       else {
         console.log(index);
@@ -76,10 +77,20 @@ function responsiveChat(element) {
     showLatestMessage(element);
   });
 }
-function showLatestMessage(element) {
+function showLatestMessage() {
   $(".responsive-html5-chat")
     .find(".messages")
     .scrollTop($(".responsive-html5-chat .messages")[0].scrollHeight);
+}
+
+function restoreChatLocation(chatLocation) {
+  if (chatLocation > $(".responsive-html5-chat .messages")[0].scrollHeight) {
+    chatLocation = $(".responsive-html5-chat .messages")[0].scrollHeight;
+    console.log("chatlocation is greater");
+  }
+  $(".responsive-html5-chat")
+    .find(".messages")
+    .scrollTop(chatLocation);
 }
 
 function responsiveChatPush(element, index, chatdata) {
@@ -109,9 +120,8 @@ function responsiveChatPush(element, index, chatdata) {
         <div oncontextmenu="chatcontext(${index},event)" class="${originClass} chatbubble">
           <p>${message}</p>
           <date><b>${sender}</b> ${date}</date>
-          <div class="removechat" onclick="removeLocal(${index},${id})"><i class="far fa-trash"></i></div>
+          <div class="removechat" onclick="removeLocal(${index},${id})" data-chatid=${index}><i class="far fa-trash"></i></div>
         </div>
-        
       </div>`
     );
   } else {
@@ -126,7 +136,7 @@ function responsiveChatPush(element, index, chatdata) {
     );
   }
 
-  showLatestMessage(".responsive-html5-chat");
+
 }
 
 function urlify(text) {
@@ -189,21 +199,27 @@ function addLocal(data) {
   }
 }
 function removeLocal(idx, id) {
-  console.log(id);
+  let chatList = JSON.parse(localStorage.getItem(localStorageVariable));
+  console.log(id, idx);
+  console.log(chatList[idx]);
+  let popped = chatList.splice(idx, 1);
+  localStorage.setItem(localStorageVariable, JSON.stringify(chatList));
+  console.log(popped["message"]);
+  var chatLocation = $(".responsive-html5-chat .messages")[0].scrollTop;
+  restoreChats(letestchat = false, chatLocation = chatLocation);
+  return;
   try {
-    let chatList = JSON.parse(localStorage.getItem(localStorageVariable));
+
     let index = chatList.length;
     for (var i = 0; i < index; i++) {
       if (chatList[i]["id"] == id) {
-        console.log(chatList[i]);
-        let popped = chatList.splice(i, 1);
-        console.log(popped["message"]);
-        break;
+
       }
     }
 
     localStorage.setItem(localStorageVariable, JSON.stringify(chatList));
-    document.getElementsByClassName("message")[idx + 1].style.display = "none";
+    // document.getElementsByClassName("message")[idx + 1].style.display = "none";
+
     return true;
   } catch {
     return false;
@@ -225,16 +241,22 @@ welcome_data = {
   date: "08.03.2022 14:30:7",
   message: "Welcome to QuickNote<br>Add anything you want to save for later.",
 };
-responsiveChatPush(".chat", 0, welcome_data);
+
 
 welcome1_data = {
-  id: -1,
+  id: -2,
   sender: "QuickChat",
   origin: "you",
   date: "08.03.2022 14:30:7",
   message: "To set wallpaper topics use /topics {YOUR-TOPIC,YOUR_TOPIC,...}",
 };
-responsiveChatPush(".chat", 0, welcome1_data);
+
+function adminChatLoad() {
+  responsiveChatPush(".chat", -2, welcome_data);
+  responsiveChatPush(".chat", -1, welcome1_data);
+}
+
+
 
 function chatcontext(id, e) {
   e.preventDefault();
@@ -246,10 +268,19 @@ function chatcontext(id, e) {
   // chat.classList.toggle("moveleft");
   chat.querySelector(".removechat").classList.toggle("moveright");
 }
-function restoreChats() {
+
+function restoreChats(letestchat = true, chatLocation = 0) {
   let chatlist = loadLocal();
+  document.querySelector(".responsive-html5-chat .messages").innerHTML = "";
+  adminChatLoad();
   for (var i = 0; i < chatlist.length; i++) {
     responsiveChatPush(".chat", i, chatlist[i]);
+  }
+  if (letestchat) {
+    showLatestMessage();
+  }
+  else {
+    restoreChatLocation(chatLocation);
   }
 }
 restoreChats();
