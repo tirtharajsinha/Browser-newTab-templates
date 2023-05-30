@@ -101,7 +101,7 @@ function process_forweather_data(data) {
   for (var i = 0; i < forcustdata.length; i++) {
     day = forcustdata[i];
     let fordate = new Date(day.dt * 1000);
-    console.log(fordate);
+    // console.log(fordate);
     if (fordate.getDate() == dateday) {
       continue;
     }
@@ -133,19 +133,19 @@ function fetchcurweatherapi() {
   let url = base + place[0] + "&appid=" + weatherapi + "&units=metric";
   fetch(url)
     .then((response) => response.json())
-    .then((data) => process_curweather_data(data))
+    .then((data) => process_curweather_data(data, place[0]))
     .catch(function (error) {
       console.log(error);
     });
 }
 
-function process_curweather_data(forcustdata) {
+function process_curweather_data(forcustdata, curcity) {
   day = forcustdata;
   console.log("current weather data");
   let temp = Number((day["main"]["temp"]).toFixed(0));
   let icon = day["weather"][0]["icon"];
   console.log(temp + "" + icon);
-  var curcity = read_json("weatherplace");
+  // var curcity = read_json("weatherplace");
   document.getElementById("place-entry").value = curcity;
   document.getElementById("curcity").innerHTML = "in " + curcity;
   document.getElementById("curtemp").innerHTML = temp;

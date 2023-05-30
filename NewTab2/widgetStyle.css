@@ -33,11 +33,11 @@
   z-index: 20;
   padding: 0px;
   padding-top: 0px;
-  background-color: rgba(227, 227, 227, 0.204);
+  background-color: rgba(255, 255, 255, 0.297);
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   overflow-y: hidden;
   overflow-x: hidden;
 }

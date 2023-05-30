@@ -48,12 +48,36 @@ function responsiveChat(element) {
       //       currentDate +
       //       "</date></div></div>"
       //   );
+
+      if (message.startsWith("/topics")) {
+        var topics = message.replace("/topics", "").replace(/^\s+|\s+$/g, '');
+        console.log("topics : " + topics);
+
+        if (topics == "") {
+          show_topics = {
+            id: -2,
+            sender: "QuickChat",
+            origin: "you",
+            date: "08.03.2022 14:30:7",
+            message: localStorage.getItem("walltopics"),
+          };
+          responsiveChatPush(".chat", -3, show_topics);
+          $(".chatinput").val("");
+          return;
+        }
+        else {
+          localStorage.setItem("walltopics", topics);
+        }
+
+      }
+
       data = {
         sender: "Tirtha",
         origin: "me",
         date: currentDate,
         message: message,
       };
+
       let index = addLocal(data);
 
       if (index != false) {
@@ -99,12 +123,6 @@ function responsiveChatPush(element, index, chatdata) {
   let origin = chatdata["origin"];
   let date = chatdata["date"];
   let message = chatdata["message"];
-
-  if (message.startsWith("/topics ")) {
-    var topics = message.replace("/topics ", "")
-    console.log(topics);
-    localStorage.setItem("walltopics", topics);
-  }
 
 
   var originClass;
@@ -250,6 +268,9 @@ welcome1_data = {
   date: "08.03.2022 14:30:7",
   message: "To set wallpaper topics use /topics {YOUR-TOPIC,YOUR_TOPIC,...}",
 };
+
+
+
 
 function adminChatLoad() {
   responsiveChatPush(".chat", -2, welcome_data);

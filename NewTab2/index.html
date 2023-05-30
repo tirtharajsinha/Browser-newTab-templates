@@ -279,7 +279,7 @@
             var topics = getwalltopics();
             var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
-                <img class="wrapped-bg-pre randomwall" src="${randomimage}" alt="" onclick="changebg('${randomimage}')" />
+                <img class="wrapped-bg-pre randomwall" src="${randomimage}" alt="" onclick="changebg('${randomimage}',immediate=true)" />
                 `
 
             for (var i = 1; i <= staticWallpapercount; i++) {
@@ -301,19 +301,42 @@
             // document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
 
         }
-        function changebg(wallurl) {
+        function changebg(wallurl, immediate = false) {
             console.log(wallurl);
             if (wallurl.includes("jpg")) {
 
                 document.getElementById("static-bg").style.display = "block";
                 document.getElementById("dynamic-bg").style.display = "none";
                 document.getElementById("static-bg").src = `wallpapers/${wallurl}`
-
             }
             else if (wallurl.includes("http")) {
-                document.getElementById("static-bg").style.display = "block";
-                document.getElementById("dynamic-bg").style.display = "none";
-                document.getElementById("static-bg").src = `${wallurl}`
+                let standbywall = localStorage.getItem("standbywallpaper");
+                if (immediate == true) {
+                    document.getElementById("static-bg").style.display = "block";
+                    document.getElementById("dynamic-bg").style.display = "none";
+                    document.getElementById("static-bg").src = wallurl;
+                    toDataURL(`${wallurl}`, function (dataUrl) {
+                        localStorage.setItem("standbywallpaper", dataUrl);
+                    })
+                }
+                else if (standbywall) {
+                    document.getElementById("static-bg").style.display = "block";
+                    document.getElementById("dynamic-bg").style.display = "none";
+                    document.getElementById("static-bg").src = standbywall;
+                    toDataURL(`${wallurl}`, function (dataUrl) {
+                        localStorage.setItem("standbywallpaper", dataUrl);
+                    })
+                }
+                else {
+                    toDataURL(`${wallurl}`, function (dataUrl) {
+                        localStorage.setItem("standbywallpaper", dataUrl);
+                        document.getElementById("static-bg").style.display = "block";
+                        document.getElementById("dynamic-bg").style.display = "none";
+                        document.getElementById("static-bg").src = dataUrl;
+                    })
+                }
+
+
             }
             else {
                 document.getElementById("static-bg").style.display = "none";
@@ -336,6 +359,22 @@
 
 
         }
+
+        function toDataURL(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        }
+
+
         function getcurbg() {
             if (!hasLocalStorage) return;
             return localStorage.getItem("currentDynamicWallpaper");
@@ -356,6 +395,7 @@
 
             localStorage.setItem("currentDynamicWallpaper", path);
         }
+
         function hasLocalStorage() {
             return typeof window.localStorage !== 'undefined';
         }
