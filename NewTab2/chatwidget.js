@@ -266,7 +266,7 @@ welcome1_data = {
   sender: "QuickChat",
   origin: "you",
   date: "08.03.2022 14:30:7",
-  message: "To set wallpaper topics use /topics {YOUR-TOPIC,YOUR_TOPIC,...}",
+  message: "To set wallpaper topics use /topics {YOUR-TOPIC,YOUR_TOPIC,...} and /topics to view saved topics",
 };
 
 

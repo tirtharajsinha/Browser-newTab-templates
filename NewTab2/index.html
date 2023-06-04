@@ -277,6 +277,7 @@
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = `<h3>Static Wallpapers</h3>`;
 
             var topics = getwalltopics();
+            console.log(topics);
             var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
                 <img class="wrapped-bg-pre randomwall" src="${randomimage}" alt="" onclick="changebg('${randomimage}',immediate=true)" />
@@ -310,6 +311,12 @@
                 document.getElementById("static-bg").src = `wallpapers/${wallurl}`
             }
             else if (wallurl.includes("http")) {
+                var topics = getwalltopics();
+                let topicsList = topics.split(",");
+                let topic = topicsList[getRandomInt(topicsList.length)];
+
+                // console.log(topics);
+                wallurl = `https://source.unsplash.com/1920x1080/?${topic}`
                 let standbywall = localStorage.getItem("standbywallpaper");
                 if (immediate == true) {
                     document.getElementById("static-bg").style.display = "block";
@@ -358,6 +365,10 @@
             setcurbg(wallurl);
 
 
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
         }
 
         function toDataURL(url, callback) {
