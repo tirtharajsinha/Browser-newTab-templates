@@ -1,4 +1,22 @@
 let userval = "";
+const options = {
+  protocols: [
+    'http',
+    'https',
+    'ftp'
+  ],
+  require_tld: true,
+  require_protocol: false,
+  require_host: true,
+  require_valid_protocol: true,
+  allow_underscores: false,
+  host_whitelist: false,
+  host_blacklist: false,
+  allow_trailing_dot: false,
+  allow_protocol_relative_urls: false,
+  disallow_auth: false
+}
+
 function auto_suggest(ele) {
   let q = ele.value;
   if (ele.value.length < 1) {
@@ -40,9 +58,10 @@ function fetchsuggestions(query) {
 
   fetch(url)
     .then((response) => response.json())
-    .then((data) => formatsuggetions(data))
+    .then((data) => formatsuggetions(data, query))
     .catch(function (error) {
       console.log("can't fetch ! check connection");
+      console.log(error);
       document.getElementById("suggetion-box").innerHTML = "";
     });
 }
@@ -71,15 +90,78 @@ function fetchsuggestions_ddg(query) {
     });
 }
 
-function formatsuggetions(data) {
+function formatsuggetions(data, query) {
   data = data.query.search;
   let str = "";
+  let suggLimit = 5;
   let box = document.getElementById("suggetion-box");
+
+
+
   if (document.getElementById("searchbar").value == "") {
     return;
   }
   box.innerHTML = "";
-  for (var i = 0; i < 5; i++) {
+
+  if (validator.isURL(query, options) || isValidURL(query)) {
+    let searchUrlReq = `
+    <li class="suggests" onclick="add_sugg_to_searchbar(this)">
+      <i class="fa fa-globe"></i>
+      <p class="sugg-val" style="color:#0095ff;" data-isurl=1>${query}</p>
+      <i class='fa fa-arrow-right open-link'></i>
+    </li>`;
+    console.log(query + " : valid url");
+    str += searchUrlReq;
+    suggLimit--;
+
+  }
+
+  let strongmatchedSites = populerSites.filter((site) => {
+    return site["rootDomain"].startsWith(query);
+  })
+
+
+  let strongmatch = strongmatchedSites.length;
+  if (strongmatchedSites.length > suggLimit) {
+    strongmatch = suggLimit;
+  }
+  for (let i = 0; i < strongmatch; i++) {
+    let searchUrlReq = `
+    <li class="suggests" onclick="add_sugg_to_searchbar(this)">
+      <i class="fa fa-globe"></i>
+      <p class="sugg-val" style="color:#0095ff;" data-isurl=1>https://${strongmatchedSites[i]["rootDomain"]}</p>
+      <i class='fa fa-arrow-right open-link'></i>
+    </li>`;
+    console.log(query + " : valid url");
+    str += searchUrlReq;
+    suggLimit--;
+  }
+
+  let weakmatchedSites = populerSites.filter((site) => {
+    return site["rootDomain"].includes(query) && !site["rootDomain"].startsWith(query);
+  })
+
+  console.log(strongmatch);
+  console.log(weakmatchedSites);
+
+  let weakmatch = weakmatchedSites.length;
+  if (weakmatchedSites.length > suggLimit) {
+    weakmatch = suggLimit;
+  }
+  for (let i = 0; i < weakmatch; i++) {
+    let searchUrlReq = `
+    <li class="suggests" onclick="add_sugg_to_searchbar(this)">
+      <i class="fa fa-globe"></i>
+      <p class="sugg-val" style="color:#0095ff;" data-isurl=1>https://${weakmatchedSites[i]["rootDomain"]}</p>
+      <i class='fa fa-arrow-right open-link'></i>
+    </li>`;
+    console.log(query + " : valid url");
+    str += searchUrlReq;
+    suggLimit--;
+  }
+
+
+  for (var i = 0; i < suggLimit; i++) {
     str =
       str +
       '<li class="suggests" onclick="add_sugg_to_searchbar(this)"><i class="fa fa-search"></i><p class="sugg-val">' +
@@ -133,13 +215,26 @@ document
     }
   });
 
-function replaceURL(event) {
+function replaceURL(event, searchEngine = "google") {
   let ele = document.getElementById("searchbar");
+  // console.log(ele.value);
+
   // location.replace("www.google.com/search?q=" + ele.value);
+  if (validator.isURL(ele.value, options) || isValidURL(ele.value)) {
+    let url = ele.value;
+    if (!url.includes("http") && !url.includes("localhost:") && !url.includes("mailto")) {
+      url = "https://" + ele.value;
+    }
+
+    // console.log(url);
+    location.href = url
+    return;
+  }
   if (ele.value != "") {
     let val = ele.value;
     ele.value = "";
-    location.href = "https://www.google.com/search?q=" + val;
+
+    location.href = generateSearchUrl(searchEngine, val)
   }
 }
 
@@ -175,9 +270,38 @@ function suggests_scroll() {
 }
 
 function setsuggest() {
+  let searchEngine = "google" // google/bing/ddg
   let elements = document.getElementsByClassName("suggests");
   document.getElementById("searchbar").value =
     elements[currentfocus].getElementsByClassName("sugg-val")[0].innerHTML;
   currentfocus = -1;
-  replaceURL();
+  replaceURL(searchEngine);
+}
+
+
+
+function isValidURL(u) {
+  //A precaution/solution for the problem written in the ***note***
+  var elm;
+  if (u !== "") {
+    if (!elm) {
+      elm = document.createElement('input');
+      elm.setAttribute('type', 'url');
+    }
+    elm.value = u;
+    return elm.validity.valid;
+  }
+  else {
+    return false
+  }
+}
+
+function generateSearchUrl(searchEngine, query) {
+  let knownSearchEngine = {
+    "google": `https://www.google.com/search?q=${query}`,
+    "bing": `https://www.bing.com/search?q=${query}`,
+    "ddg": `https://duckduckgo.com/?q=${query}`
+  }
+
+  return knownSearchEngine[searchEngine];
 }
