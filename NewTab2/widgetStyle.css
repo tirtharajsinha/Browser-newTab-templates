@@ -1,3 +1,26 @@
+.download-image {
+  position: fixed;
+  top: 15px;
+  right: 70px;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
+    0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  z-index: 30;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+  padding: 0px 10px;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  background-color: rgb(216, 255, 157);
+  gap: 10px;
+}
+
 .widget-control {
   position: fixed;
   top: 15px;
