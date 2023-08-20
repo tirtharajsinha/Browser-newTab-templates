@@ -142,7 +142,7 @@ body {
 
 .autocomplete .suggests:hover {
   background: rgb(202, 202, 202);
-  color: rgb(94, 94, 94);
+  color: rgb(0, 0, 0);
 }
 
 .suggests i {

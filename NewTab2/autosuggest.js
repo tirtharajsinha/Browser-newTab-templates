@@ -104,16 +104,19 @@ function formatsuggetions(data, query) {
   box.innerHTML = "";
 
   if (validator.isURL(query, options) || isValidURL(query)) {
+    validatedUrl = query;
+    if (!query.includes("http") && !query.includes("localhost:") && !query.includes("mailto")) {
+      validatedUrl = "https://" + validatedUrl;
+    }
     let searchUrlReq = `
     <li class="suggests" onclick="add_sugg_to_searchbar(this)">
       <i class="fa fa-globe"></i>
-      <p class="sugg-val" style="color:#0095ff;" data-isurl=1>${query}</p>
+      <p class="sugg-val" style="color:#0095ff;" data-isurl=1>${validatedUrl}</p>
       <i class='fa fa-arrow-right open-link'></i>
     </li>`;
     console.log(query + " : valid url");
     str += searchUrlReq;
     suggLimit--;
-
   }
 
   let strongmatchedSites = populerSites.filter((site) => {
@@ -183,7 +186,7 @@ document
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13 && currentfocus == -1) {
       event.preventDefault();
-      replaceURL();
+      replaceURL("");
       // auto_suggest();
     }
     // Number 13 is the "Enter" key on the keyboard
@@ -215,18 +218,14 @@ document
     }
   });
 
-function replaceURL(event, searchEngine = "google") {
+function replaceURL(event, searchEngine = "google", isvalidurl = false) {
   let ele = document.getElementById("searchbar");
   // console.log(ele.value);
-
+  console.log(isvalidurl);
   // location.replace("www.google.com/search?q=" + ele.value);
-  if (validator.isURL(ele.value, options) || isValidURL(ele.value)) {
+  if (isvalidurl) {
     let url = ele.value;
-    if (!url.includes("http") && !url.includes("localhost:") && !url.includes("mailto")) {
-      url = "https://" + ele.value;
-    }
-
-    // console.log(url);
+    console.log(url);
     location.href = url
     return;
   }
@@ -254,11 +253,11 @@ var currentfocus = -1;
 function suggests_scroll() {
   let elements = document.getElementsByClassName("suggests");
   for (var i = 0; i < 5; i++) {
-    elements[i].style.background = "white";
-    elements[i].style.color = "rgb(139, 139, 139";
+    elements[i].style.background = "rgba(0,0,0,0)";
+    elements[i].style.color = "rgb(63, 63, 63)";
   }
   if (currentfocus != -1) {
-    elements[currentfocus].style.color = "rgb(94, 94, 94)";
+    elements[currentfocus].style.color = "black";
     elements[currentfocus].style.background = "rgb(202, 202, 202)";
     let elem = document.getElementsByClassName("suggests");
     document.getElementById("searchbar").value =
@@ -274,8 +273,9 @@ function setsuggest() {
   let elements = document.getElementsByClassName("suggests");
   document.getElementById("searchbar").value =
     elements[currentfocus].getElementsByClassName("sugg-val")[0].innerHTML;
+  let isvalidurl = elements[currentfocus].getElementsByClassName("sugg-val")[0].dataset.isurl == 1;
+  replaceURL("", searchEngine = searchEngine, isValidURL = isvalidurl)
   currentfocus = -1;
-  replaceURL(searchEngine);
 }
 
 
