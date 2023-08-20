@@ -20,8 +20,8 @@ const options = {
 function auto_suggest(ele) {
   let q = ele.value;
   if (ele.value.length < 1) {
-    document.getElementById("searchbar").style.borderBottomLeftRadius = "30px";
-    document.getElementById("searchbar").style.borderBottomRightRadius = "30px";
+    document.getElementById("inputbar").style.borderBottomLeftRadius = "20px";
+    document.getElementById("inputbar").style.borderBottomRightRadius = "20px";
     document.getElementById("suggetion-box").innerHTML = "";
   } else {
     currentfocus = -1;
@@ -170,8 +170,8 @@ function formatsuggetions(data, query) {
   }
   box.innerHTML = str;
 
-  document.getElementById("searchbar").style.borderBottomLeftRadius = "0px";
-  document.getElementById("searchbar").style.borderBottomRightRadius = "0px";
+  document.getElementById("inputbar").style.borderBottomLeftRadius = "0px";
+  document.getElementById("inputbar").style.borderBottomRightRadius = "0px";
 }
 
 if (document.getElementById("searchbar").value == "") {

@@ -34,8 +34,13 @@
         <div class="container">
             <!-- search bar -->
             <div class="searchbar">
-                <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)"
-                    autocomplete="off" autofocus />
+
+                <div class="inputfield" id="inputbar">
+                    <img src="glogo.png" alt="">
+                    <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)"
+                        autocomplete="off" autofocus />
+                </div>
+
                 <!-- autosuggest bar -->
                 <div class="autocomplete">
                     <ul id="suggetion-box">
@@ -159,7 +164,7 @@
     </div>
 
     <!-- added widget promt -->
-    <a download="WallpaperImage.jpg" class="download-image"><i class="fal fa-save"></i> Save This Image</a>
+    <a download="WallpaperImage.jpg" class="download-image"><i class="fal fa-save"></i></a>
     <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
         <i class="fad fa-comments-alt"></i>
     </div>
