@@ -1,3 +1,4 @@
+
 let delete_index = -1;
 let edit_index = -1;
 let walltime = 0;
@@ -250,41 +251,9 @@ function iconclick(url, icon) {
 }
 function read_json(newtabdata = "newtabdata", itemjsonarray = "") {
   if (localStorage.getItem(newtabdata) == null) {
+
     if (itemjsonarray == "") {
-      itemjsonarray = [
-        {
-          icon: "https://github.com/favicon.ico",
-          link: "https://github.com/tirtharajsinha",
-        },
-        {
-          icon: "https://api.faviconkit.com/youtube.com/356",
-          link: "https://youtube.com",
-        },
-        {
-          icon: "https://besticon.herokuapp.com/icon?size=80..120..200&url=drive.google.com",
-          link: "https://google.com",
-        },
-        {
-          icon: "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico",
-          link: "https://mail.google.com/mail/u/0/#inbox",
-        },
-        {
-          icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/2295px-Google_Drive_icon_%282020%29.svg.png",
-          link: "https://drive.google.com/drive/my-drive",
-        },
-        {
-          icon: "https://besticon.herokuapp.com/icon?size=80..120..200&url=instagram.com",
-          link: "https://instagram.com",
-        },
-        {
-          icon: "https://tirtharajsinha.github.io/favicon.png",
-          link: "https://tirtharajsinha.github.io/",
-        },
-        {
-          icon: "https://www.herokucdn.com/favicons/favicon.ico",
-          link: "https://www.heroku.com/",
-        },
-      ];
+      itemjsonarray = tabdockdata;
     }
     localStorage.setItem(newtabdata, JSON.stringify(itemjsonarray));
     return itemjsonarray;

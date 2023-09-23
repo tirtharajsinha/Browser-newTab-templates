@@ -92,11 +92,17 @@ function widget_control(action, ele) {
     document.getElementById("widget").style.transform = "translateX(0px)";
 
     document.getElementById("c-open").style.display = "none";
-    document.querySelector(".wallbtn").style.display="none";
+    document.getElementById("download-image").style.display = "none";
+
+    document.querySelector(".wallbtn").style.display = "none";
   } else {
     document.getElementById("widget").style.transform = "translateX(500px)";
     document.getElementById("c-open").style.display = "flex";
-    document.querySelector(".wallbtn").style.display="flex";
+    if (isDownloadBtnEnabled) {
+      document.getElementById("download-image").style.display = "flex";
+    }
+
+    document.querySelector(".wallbtn").style.display = "flex";
     widget_state = false;
   }
 }

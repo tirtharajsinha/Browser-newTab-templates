@@ -164,7 +164,7 @@
     </div>
 
     <!-- added widget promt -->
-    <a download="WallpaperImage.jpg" class="download-image"><i class="fal fa-save"></i></a>
+    <a download="WallpaperImage.jpg" class="download-image" id="download-image"><i class="fal fa-save"></i></a>
     <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
         <i class="fad fa-comments-alt"></i>
     </div>
@@ -256,6 +256,7 @@
 
 
     <script src="data.js"></script>
+    <script src="tabDockData.js"></script>
     <script src="top-sites.js"></script>
     <script src="./validator.min.js"></script>
     <script src="autosuggest.js"></script>
@@ -267,6 +268,7 @@
 
 
     <script>
+        let isDownloadBtnEnabled = false;
         window.history.pushState({}, document.title, "");
         var curwallpaper = getcurbg();
         if (curwallpaper) {
@@ -292,7 +294,10 @@
             console.log(topics);
             var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
-                <img class="wrapped-bg-pre randomwall" src="${randomimage}" alt="" onclick="changebg('${randomimage}',immediate=true)" />
+                <div onclick="changebg('${randomimage}',immediate=true)" class="wrapped-bg-pre refreshed">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>REFRESHED</span>
+                    </div>
                 `
 
             for (var i = 1; i <= staticWallpapercount; i++) {
@@ -406,12 +411,16 @@
             xhr.send();
         }
 
+
+
         function setupdownloadbtn(image) {
+            isDownloadBtnEnabled = true;
             document.querySelector(".download-image").href = image;
             document.querySelector(".download-image").style.display = "flex";
         }
 
         function removedownloadbtn() {
+            isDownloadBtnEnabled = false;
             document.querySelector(".download-image").href = null;
             document.querySelector(".download-image").style.display = "none";
         }

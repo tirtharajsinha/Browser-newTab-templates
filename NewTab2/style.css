@@ -759,20 +759,27 @@ body {
 }
 
 .wallpaperGalary .galary .wrapped-bg-pre {
-  width: 250px;
-  height: 150px;
   object-fit: cover;
   border-radius: 7px;
   margin: 10px;
+  margin-left: 10px;
   cursor: pointer;
+  position: relative;
+  /* display: inline-block; */
+}
+
+.wallpaperGalary .galary .wrapped-bg-pre:not(.refreshed) {
+  width: 250px;
+  height: 200px;
 }
 
 .wallpaperGalary .galary .wallpreview {
   width: 100%;
   height: 100%;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   padding: 10px;
   overflow-y: auto;
+  display: inline-block;
 }
 
 .wallpreview::-webkit-scrollbar {
@@ -789,24 +796,52 @@ body {
   background-color: transparent;
 }
 
-.randomwall {
+.refreshed {
+  width: 250px;
+  height: 200px;
+  padding-top: 40px;
+  font-size: 4em;
+  text-transform: uppercase;
+  /* font-family: "Open Sans Pro", sans-serif; */
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
   position: relative;
+  background-image: url(wallpapers/wallpaper-re.jpg);
+  border-radius: 7px;
+  /* display: inline-block; */
+}
+.refreshed span {
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-family: "Poppins", sans-serif;
+  display: block;
 }
 
-.randomwall::after {
-  content: "Refreshed";
-  position: absolute;
+.refreshed:before {
+  content: "";
+  z-index: -2;
   width: 100%;
   height: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgb(35, 35, 35);
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  z-index: 10;
-  background-color: red;
+  top: 0;
+  left: 0;
+  background-image: inherit;
+  position: absolute;
+  border-radius: 7px;
+}
+
+/* Text Background (black zone) */
+.refreshed:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  top: 20px;
+  left: 20px;
+  background-color: #000;
+  border-radius: 7px;
 }
 
 .closewallbtn {
