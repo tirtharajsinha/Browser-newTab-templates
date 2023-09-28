@@ -93,7 +93,8 @@ function fetchsuggestions_ddg(query) {
 function formatsuggetions(data, query) {
   data = data.query.search;
   let str = "";
-  let suggLimit = 5;
+  const suggAllowence = 5
+  let suggLimit = suggAllowence;
   let box = document.getElementById("suggetion-box");
 
 
@@ -163,14 +164,28 @@ function formatsuggetions(data, query) {
     suggLimit--;
   }
 
-
-  for (var i = 0; i < suggLimit; i++) {
-    str =
-      str +
-      '<li class="suggests" onclick="add_sugg_to_searchbar(this)"><i class="fa fa-search"></i><p class="sugg-val">' +
-      data[i].title +
-      "</p><i class='fa fa-arrow-right open-link'></i></li>";
+  try {
+    if (data.length > 0) {
+      for (var i = 0; i < suggLimit; i++) {
+        str =
+          str +
+          '<li class="suggests" onclick="add_sugg_to_searchbar(this)"><i class="fa fa-search"></i><p class="sugg-val">' +
+          data[i].title +
+          "</p><i class='fa fa-arrow-right open-link'></i></li>";
+        suggLimit--;
+      }
+    }
   }
+  catch { }
+
+
+  if (str == "") {
+    document.getElementById("inputbar").style.borderBottomLeftRadius = "20px";
+    document.getElementById("inputbar").style.borderBottomRightRadius = "20px";
+    return 0;
+  }
+
+
   box.innerHTML = str;
 
   document.getElementById("inputbar").style.borderBottomLeftRadius = "0px";
@@ -252,7 +267,7 @@ var currentfocus = -1;
 
 function suggests_scroll() {
   let elements = document.getElementsByClassName("suggests");
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < elements.length; i++) {
     elements[i].style.background = "rgba(0,0,0,0)";
     elements[i].style.color = "rgb(63, 63, 63)";
   }
