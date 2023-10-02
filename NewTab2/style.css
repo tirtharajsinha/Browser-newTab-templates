@@ -742,44 +742,48 @@ body {
   font-size: 20px;
   letter-spacing: 1px;
   font-weight: 600;
-  margin-left: 20px;
+  margin-left: 0px;
   /* width: 100%; */
   padding: 10px 0;
   border-bottom: 2px rgba(139, 139, 139, 0.492) solid;
   margin-bottom: 10px;
 }
 
-.wallpaperGalary .galary .wrapped-pre {
-  width: 250px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 7px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-.wallpaperGalary .galary .wrapped-bg-pre {
-  object-fit: cover;
-  border-radius: 7px;
-  margin: 10px;
-  margin-left: 10px;
-  cursor: pointer;
-  position: relative;
-  /* display: inline-block; */
-}
-
-.wallpaperGalary .galary .wrapped-bg-pre:not(.refreshed) {
-  width: 250px;
-  height: 200px;
-}
-
 .wallpaperGalary .galary .wallpreview {
   width: 100%;
   height: 100%;
   /* flex-wrap: wrap; */
-  padding: 10px;
+  padding: 15px;
   overflow-y: auto;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+}
+
+.wallpaperGalary .galary .wallpreview .wallpreviewsec {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-columns: auto;
+  gap: 15px;
+  justify-content: center;
+}
+
+.wallpaperGalary .galary .wrapped-pre {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+}
+
+.wallpaperGalary .galary .wrapped-bg-pre {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+  /* display: inline-block; */
 }
 
 .wallpreview::-webkit-scrollbar {
@@ -797,10 +801,7 @@ body {
 }
 
 .refreshed {
-  width: 250px;
-  height: 200px;
-  padding-top: 40px;
-  font-size: 4em;
+  font-size: 3em;
   text-transform: uppercase;
   /* font-family: "Open Sans Pro", sans-serif; */
   background-size: cover;
@@ -811,6 +812,10 @@ body {
   background-image: url(wallpapers/wallpaper-re.jpg);
   border-radius: 7px;
   /* display: inline-block; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .refreshed span {
   font-size: 24px;
@@ -855,4 +860,5 @@ body {
   overflow: hidden;
   width: 50px;
   height: 50px;
+  z-index: 10;
 }

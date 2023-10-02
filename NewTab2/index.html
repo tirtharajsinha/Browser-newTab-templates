@@ -27,7 +27,7 @@
 <body>
     <div class="wrap-all" id="wrap-all">
         <img class="wrapped-bg" id="static-bg" src="wallpapers\wallpaper1.jpg" alt="" style="display:none;" />
-        <video autoplay playsinline muted style="pointer-events: none;" class="wrapped-bg" id="dynamic-bg"
+        <video autoplay playsinline muted loop style="pointer-events: none;" class="wrapped-bg" id="dynamic-bg"
             style="display:none;">
             <source id="bgsource" src="" type="video/mp4">
         </video>
@@ -289,11 +289,11 @@
             var wallpapercount = allwallpaper["dynamicwallpapercount"];
             var staticWallpapercount = allwallpaper["staticwallpapercount"];
             document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = `<h3>Static Wallpapers</h3>`;
-
+            let wallpreview = "<div class='wallpreviewsec'>"
             var topics = getwalltopics();
             console.log(topics);
             var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
+            wallpreview += `
                 <div onclick="changebg('${randomimage}',immediate=true)" class="wrapped-bg-pre refreshed">
                     <i class="fas fa-sync-alt"></i>
                     <span>REFRESHED</span>
@@ -302,19 +302,22 @@
 
             for (var i = 1; i <= staticWallpapercount; i++) {
                 var wallpaper = "wallpaper" + i + ".jpg";
-                document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `
+                wallpreview += `
                 <img class="wrapped-bg-pre" src="wallpapers/${wallpaper}" alt="" onclick="changebg('${wallpaper}')" />
                 `
             }
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `<h3>Dynamic Wallpapers</h3>`
 
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += wallpreview + "</div>"
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `<h3>Dynamic Wallpapers</h3>`
+            wallpreview = "<div class='wallpreviewsec'>"
             for (var i = 1; i <= wallpapercount; i++) {
                 var wallpaper = "dynamic" + i + ".mp4";
-                document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
+                wallpreview += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
             <source src="wallpapers/${wallpaper}" type="video/mp4">
         </video>`
 
             }
+            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += wallpreview + "</div>"
 
             // document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
 
