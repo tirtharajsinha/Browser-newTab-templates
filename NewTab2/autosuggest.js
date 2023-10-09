@@ -172,7 +172,6 @@ function formatsuggetions(data, query) {
           '<li class="suggests" onclick="add_sugg_to_searchbar(this)"><i class="fa fa-search"></i><p class="sugg-val">' +
           data[i].title +
           "</p><i class='fa fa-arrow-right open-link'></i></li>";
-        suggLimit--;
       }
     }
   }
