@@ -5,7 +5,7 @@
 
 /* use
 font-family: 'Dancing Script', cursive;
-font-family: 'Lobster', cursive; 
+font-family: 'Lobster', cursive;
 font-family: 'Poppins', sans-serif;
 */
 
@@ -38,6 +38,7 @@ body {
   top: 0;
   bottom: 0;
   z-index: -1;
+  filter: brightness(80%);
 }
 
 .container {
@@ -60,10 +61,11 @@ body {
   justify-content: center;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
-  border-radius: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(200, 200, 200, 0.8);
   width: 600px;
-  background: rgba(255, 255, 255, 0.514);
-  backdrop-filter: blur(5px);
+  background: rgba(200, 200, 200, 0.514);
+  backdrop-filter: blur(20px);
   padding-left: 15px;
 }
 
@@ -208,7 +210,8 @@ body {
   color: rgb(147, 228, 127);
   font-size: 20px;
   font-family: 400;
-  border-left: 4px solid rgb(176, 228, 163);
+  border-right: 4px solid rgb(176, 228, 163);
+  transform: rotate(180deg);
 }
 
 .date .daydate {
@@ -227,7 +230,7 @@ body {
   position: relative;
   z-index: 100;
   top: -40px;
-  left: -110px;
+  left: -90px;
   color: rgb(255, 255, 255);
   font-family: "Dancing Script", cursive;
   font-size: 45px;
@@ -254,7 +257,7 @@ body {
 #dock .base {
   position: relative;
   width: 550px;
-  border-bottom: 50px solid rgba(255, 255, 255, 0.171);
+  border-bottom: 50px solid rgba(255, 255, 255, 0.445);
   backdrop-filter: blur(3px);
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
@@ -286,7 +289,7 @@ body {
 }
 .bottom-dock-alt ul {
   background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(10px);
   padding: 10px;
   border-radius: 20px;
 }
@@ -578,7 +581,8 @@ body {
   font-size: 35px;
   font-family: "Rajdhani", sans-serif;
   color: white;
-  mix-blend-mode: darken;
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.5);
+  text-stroke: 0.5px rgba(0, 0, 0, 0.5);
   padding-top: 15px;
   white-space: nowrap;
 }

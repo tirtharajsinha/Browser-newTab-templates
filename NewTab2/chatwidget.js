@@ -59,7 +59,7 @@ function responsiveChat(element) {
             sender: "QuickChat",
             origin: "you",
             date: "08.03.2022 14:30:7",
-            message: localStorage.getItem("walltopics"),
+            message: localStorage.getItem("walltopics") || "No Topic has been set",
           };
           responsiveChatPush(".chat", -3, show_topics);
           $(".chatinput").val("");
@@ -158,10 +158,16 @@ function responsiveChatPush(element, index, chatdata) {
 }
 
 function urlify(text) {
-  var urlRegex = /(https?:\/\/[^\s]+)/g;
-  return text.replace(urlRegex, function (url) {
-    return '<a href="' + url + '">' + url + "</a>";
-  });
+  if (text) {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function (url) {
+      return '<a href="' + url + '">' + url + "</a>";
+    });
+  }
+  else {
+    return "";
+  }
+
   // or alternatively
   // return text.replace(urlRegex, '<a href="$1">$1</a>')
 }

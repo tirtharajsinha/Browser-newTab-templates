@@ -1,4 +1,4 @@
 const allwallpaper = {
-    "staticwallpapercount": 10,
-    "dynamicwallpapercount": 10
-}
+  staticwallpapercount: 16,
+  dynamicwallpapercount: 10,
+};

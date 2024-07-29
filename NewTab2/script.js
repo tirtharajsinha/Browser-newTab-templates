@@ -249,7 +249,7 @@ function load_buttons() {
 function iconclick(url, icon) {
   window.location = url;
 }
-function read_json(newtabdata = "newtabdata", itemjsonarray = "") {
+function read_json(newtabdata = "newtabdata", itemjsonarray = "", rawdata = false) {
   if (localStorage.getItem(newtabdata) == null) {
 
     if (itemjsonarray == "") {
@@ -355,6 +355,21 @@ function copy_path() {
   }
 
 }
+
+function save_shortcuts() {
+  let itemjsonarraystr = localStorage.getItem("newtabdata");
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(itemjsonarraystr));
+  element.setAttribute('download', "_backup_newtab_shortcut_data.json");
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 function toggle_dock() {
   set_dock_style();
   document.getElementById("dock").classList.toggle("bottom-dock-alt");

@@ -14,9 +14,9 @@
   list-style: none;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2),
     0px 6px 20px 0px rgba(0, 0, 0, 0.19);
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
   overflow: hidden;
-  font-family: 'Lobster', cursive; 
+  font-family: "Lobster", cursive;
   padding: 10px;
 }
 
@@ -37,10 +37,10 @@
   border: none;
   transition: all 0.2s ease;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   border-radius: 10px;
 }
-.show li i{
+.show li i {
   font-weight: 600;
   /* font-family: 'Poppins', sans-serif; */
   letter-spacing: 1px;

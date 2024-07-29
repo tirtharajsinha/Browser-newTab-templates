@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,46 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="widgetStyle.css">
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="widgetStyle.css" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
     <script src="node_modules\jquery\dist\jquery.min.js"></script>
 
-    <link href="jquery-ui-1.10.4\themes\base\jquery-ui.css" rel="stylesheet">
-    <script src="jquery-ui-1.10.4\jquery-1.10.2.js">
-    </script>
+    <link href="jquery-ui-1.10.4\themes\base\jquery-ui.css" rel="stylesheet" />
+    <script src="jquery-ui-1.10.4\jquery-1.10.2.js"></script>
     <script src="jquery-ui-1.10.4\ui\jquery-ui.js"></script>
     <script src="contextmenu.js"></script>
-    <link rel="stylesheet" href="chatwidget.css">
+    <link rel="stylesheet" href="chatwidget.css" />
     <link rel="stylesheet" href="contextmenu.css" />
 
     <title>Tabber</title>
 </head>
 
-
 <body>
     <div class="wrap-all" id="wrap-all">
-        <img class="wrapped-bg" id="static-bg" src="wallpapers\wallpaper1.jpg" alt="" style="display:none;" />
-        <video autoplay playsinline muted loop style="pointer-events: none;" class="wrapped-bg" id="dynamic-bg"
-            style="display:none;">
-            <source id="bgsource" src="" type="video/mp4">
+        <img class="wrapped-bg" id="static-bg" src="wallpapers\wallpaper1.jpg" alt="" style="display: none" />
+        <video autoplay playsinline muted loop style="pointer-events: none" class="wrapped-bg" id="dynamic-bg"
+            style="display: none">
+            <source id="bgsource" src="" type="video/mp4" />
         </video>
         <div class="container">
             <!-- search bar -->
             <div class="searchbar">
-
                 <div class="inputfield" id="inputbar">
-                    <img src="glogo.png" alt="">
+                    <img src="glogo.png" alt="" />
                     <input type="search" id="searchbar" placeholder="Search the web" oninput="auto_suggest(this)"
                         autocomplete="off" autofocus />
                 </div>
 
                 <!-- autosuggest bar -->
                 <div class="autocomplete">
-                    <ul id="suggetion-box">
-
-                    </ul>
+                    <ul id="suggetion-box"></ul>
                 </div>
             </div>
             <!-- dock view div -->
@@ -53,13 +47,14 @@
                 <div id="dock" onload="load_buttons()">
                     <ul id="dock-but">
                         <div id="dock-items"></div>
-                        <li style="animation-delay:0s;"> <img src="plus.png" onclick="open_prompt()" /></li>
+                        <!-- <li style="animation-delay: 0s">
+                            <img src="plus.png" onclick="open_prompt()" />
+                        </li> -->
                     </ul>
                     <!-- dock plain/base div -->
                     <div class="base" id="dock-base"></div>
                 </div>
             </div>
-
 
             <!-- add shortcut entry prompt -->
             <div class="entry" id="promt">
@@ -85,7 +80,6 @@
                 <div class="foo"></div>
             </div>
 
-
             <!-- Datetime div -->
             <div class="datetime">
                 <div class="effect"></div>
@@ -103,9 +97,9 @@
 
             <div class="weather" onmousemove="toggle_forweather('250px')" onmouseleave="toggle_forweather('0px')">
                 <div class="curweather">
-                    <img id="curweather-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="" />
+                    <img id="curweather-icon" src="" alt="" />
                     <p class="curweather-text">
-                        <span id="curtemp">30</span><span> °C</span>
+                        <span id="curtemp">--</span><span> °C</span>
                         <span id="curcity"></span>
                     </p>
                 </div>
@@ -115,17 +109,23 @@
                         <li class="wday">
                             <h3 class="forweekday"></h3>
                             <img class="foricon" src="" alt="" />
-                            <p><span class="fortemp"></span><span> °C</span></p>
+                            <p>
+                                <span class="fortemp"></span><span> °C</span>
+                            </p>
                         </li>
                         <li class="wday">
                             <h3 class="forweekday"></h3>
                             <img class="foricon" src="" alt="" />
-                            <p><span class="fortemp"></span><span> °C</span></p>
+                            <p>
+                                <span class="fortemp"></span><span> °C</span>
+                            </p>
                         </li>
                         <li class="wday">
                             <h3 class="forweekday"></h3>
                             <img class="foricon" src="" alt="" />
-                            <p><span class="fortemp"></span><span> °C</span></p>
+                            <p>
+                                <span class="fortemp"></span><span> °C</span>
+                            </p>
                         </li>
                     </ul>
                     <a href="#" class="moreweather">Get Full Forecast</a>
@@ -139,7 +139,7 @@
                     <i class="fa fa-external-link"> Open in NewTab</i>
                 </li>
                 <li onclick="copy_path()">
-                    <i class="fa fa-copy"> Copy path</i>
+                    <i class="fa fa-copy"> Copy Url</i>
                 </li>
                 <li onclick="toggle_dock()">
                     <i class="fa fa-paint-brush"> Change Dock Style</i>
@@ -150,6 +150,12 @@
                 <li onclick="edit_button()">
                     <i class="fa fa-edit"> Edit</i>
                 </li>
+                <li onclick="open_prompt()">
+                    <i class="fa fa-plus"> Add Shortcut</i>
+                </li>
+                <li onclick="save_shortcuts()">
+                    <i class="fa fa-copy"> Save Shortcut Data</i>
+                </li>
             </ul>
         </div>
         <div class="hide" id="cmenu">
@@ -159,8 +165,6 @@
                 </li>
             </ul>
         </div>
-
-
     </div>
 
     <!-- added widget promt -->
@@ -168,12 +172,13 @@
     <div class="widget-control" id="c-open" onclick="widget_control(1,this)">
         <i class="fad fa-comments-alt"></i>
     </div>
-    <div class="widget-control" id="c-close" onclick="widget_control(0,this)"><i class="fa fa-close"></i></div>
+    <div class="widget-control" id="c-close" onclick="widget_control(0,this)">
+        <i class="fa fa-close"></i>
+    </div>
     <div class="widget" id="widget">
         <div class="iphone">
             <div class="border">
-                <div class="responsive-html5-chat">
-                </div>
+                <div class="responsive-html5-chat"></div>
             </div>
         </div>
         <!-- <div class="w-head">
@@ -212,7 +217,6 @@
             </div>
         </div> -->
 
-
         <!-- <div class="news" id="news">
             <h2>Top News</h2>
             <div id="permission">
@@ -248,12 +252,12 @@
     <div class="wallbtn"><i class="fa fa-moon-o"></i></div>
     <div class="wallpaperGalary">
         <div class="galary">
-            <div class="closewallbtn" onclick="closewallpreview()"><i class="fa fa-close"></i></div>
+            <div class="closewallbtn" onclick="closewallpreview()">
+                <i class="fa fa-close"></i>
+            </div>
             <div class="wallpreview"></div>
         </div>
     </div>
-
-
 
     <script src="data.js"></script>
     <script src="tabDockData.js"></script>
@@ -266,7 +270,6 @@
     <script src="chatwidget.js"></script>
     <script src="fontawasome-pro/fontawasome5.15-pro.js"></script>
 
-
     <script>
         let isDownloadBtnEnabled = false;
         window.history.pushState({}, document.title, "");
@@ -274,126 +277,137 @@
         if (curwallpaper) {
             changebg(curwallpaper);
         }
-        document.querySelector(".wallbtn").addEventListener('click', e => {
-            document.querySelector(".wallpaperGalary").classList.add("walldisplay");
-            document.querySelector(".wallbtn").style.display = "none";
-            createwallsettings();
-        })
+        document
+            .querySelector(".wallbtn")
+            .addEventListener("click", (e) => {
+                document
+                    .querySelector(".wallpaperGalary")
+                    .classList.add("walldisplay");
+                document.querySelector(".wallbtn").style.display = "none";
+                createwallsettings();
+            });
 
         function closewallpreview() {
-            document.querySelector(".wallpaperGalary").classList.remove("walldisplay");
+            document
+                .querySelector(".wallpaperGalary")
+                .classList.remove("walldisplay");
             document.querySelector(".wallbtn").style.display = "flex";
         }
 
         function createwallsettings() {
             var wallpapercount = allwallpaper["dynamicwallpapercount"];
             var staticWallpapercount = allwallpaper["staticwallpapercount"];
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = `<h3>Static Wallpapers</h3>`;
-            let wallpreview = "<div class='wallpreviewsec'>"
+            document.querySelector(
+                ".wallpaperGalary .galary .wallpreview",
+            ).innerHTML = `<h3>Static Wallpapers</h3>`;
+            let wallpreview = "<div class='wallpreviewsec'>";
             var topics = getwalltopics();
             console.log(topics);
-            var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`
+            var randomimage = `https://source.unsplash.com/1920x1080/?${topics}`;
             wallpreview += `
                 <div onclick="changebg('${randomimage}',immediate=true)" class="wrapped-bg-pre refreshed">
                     <i class="fas fa-sync-alt"></i>
                     <span>REFRESHED</span>
                     </div>
-                `
+                `;
 
             for (var i = 1; i <= staticWallpapercount; i++) {
                 var wallpaper = "wallpaper" + i + ".jpg";
                 wallpreview += `
-                <img class="wrapped-bg-pre" src="wallpapers/${wallpaper}" alt="" onclick="changebg('${wallpaper}')" />
-                `
+                <img loading="lazy" class="wrapped-bg-pre" src="wallpapers/${wallpaper}" alt="" onclick="changebg('${wallpaper}')" />
+                `;
             }
 
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += wallpreview + "</div>"
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += `<h3>Dynamic Wallpapers</h3>`
-            wallpreview = "<div class='wallpreviewsec'>"
+            document.querySelector(
+                ".wallpaperGalary .galary .wallpreview",
+            ).innerHTML += wallpreview + "</div>";
+            document.querySelector(
+                ".wallpaperGalary .galary .wallpreview",
+            ).innerHTML += `<h3>Dynamic Wallpapers</h3>`;
+            wallpreview = "<div class='wallpreviewsec'>";
             for (var i = 1; i <= wallpapercount; i++) {
                 var wallpaper = "dynamic" + i + ".mp4";
-                wallpreview += `<video playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
+                wallpreview += `<video loading="lazy" playsinline muted style="" class="wrapped-pre" onclick="changebg('${wallpaper}')">
             <source src="wallpapers/${wallpaper}" type="video/mp4">
-        </video>`
-
+        </video>`;
             }
-            document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML += wallpreview + "</div>"
+            document.querySelector(
+                ".wallpaperGalary .galary .wallpreview",
+            ).innerHTML += wallpreview + "</div>";
 
             // document.querySelector(".wallpaperGalary .galary .wallpreview").innerHTML = wallpreview;
-
         }
-
 
         function changebg(wallurl, immediate = false) {
             console.log(wallurl);
             if (wallurl.includes("jpg")) {
-
-                document.getElementById("static-bg").style.display = "block";
-                document.getElementById("dynamic-bg").style.display = "none";
-                document.getElementById("static-bg").src = `wallpapers/${wallurl}`
-                removedownloadbtn()
-            }
-            else if (wallurl.includes("http")) {
+                document.getElementById("static-bg").style.display =
+                    "block";
+                document.getElementById("dynamic-bg").style.display =
+                    "none";
+                document.getElementById("static-bg").src =
+                    `wallpapers/${wallurl}`;
+                removedownloadbtn();
+            } else if (wallurl.includes("http")) {
                 var topics = getwalltopics();
                 let topicsList = topics.split(",");
                 let topic = topicsList[getRandomInt(topicsList.length)];
 
                 // console.log(topics);
-                wallurl = `https://source.unsplash.com/1920x1080/?${topic}`
+                wallurl = `https://source.unsplash.com/1920x1080/?${topic}`;
                 let standbywall = localStorage.getItem("standbywallpaper");
                 if (immediate == true) {
-                    document.getElementById("static-bg").style.display = "block";
-                    document.getElementById("dynamic-bg").style.display = "none";
+                    document.getElementById("static-bg").style.display =
+                        "block";
+                    document.getElementById("dynamic-bg").style.display =
+                        "none";
                     document.getElementById("static-bg").src = wallurl;
                     setupdownloadbtn(wallurl);
                     toDataURL(`${wallurl}`, function (dataUrl) {
                         localStorage.setItem("standbywallpaper", dataUrl);
-                    })
-                }
-                else if (standbywall) {
-                    document.getElementById("static-bg").style.display = "block";
-                    document.getElementById("dynamic-bg").style.display = "none";
+                    });
+                } else if (standbywall) {
+                    document.getElementById("static-bg").style.display =
+                        "block";
+                    document.getElementById("dynamic-bg").style.display =
+                        "none";
                     document.getElementById("static-bg").src = standbywall;
                     setupdownloadbtn(standbywall);
                     toDataURL(`${wallurl}`, function (dataUrl) {
                         localStorage.setItem("standbywallpaper", dataUrl);
-                    })
-                }
-                else {
+                    });
+                } else {
                     toDataURL(`${wallurl}`, function (dataUrl) {
                         localStorage.setItem("standbywallpaper", dataUrl);
-                        document.getElementById("static-bg").style.display = "block";
-                        document.getElementById("dynamic-bg").style.display = "none";
+                        document.getElementById("static-bg").style.display =
+                            "block";
+                        document.getElementById(
+                            "dynamic-bg",
+                        ).style.display = "none";
                         document.getElementById("static-bg").src = dataUrl;
                         setupdownloadbtn(dataUrl);
-                    })
+                    });
                 }
-
-
-
-
-            }
-            else {
+            } else {
                 document.getElementById("static-bg").style.display = "none";
-                document.getElementById("dynamic-bg").style.display = "block";
-                removedownloadbtn()
+                document.getElementById("dynamic-bg").style.display =
+                    "block";
+                removedownloadbtn();
                 while (true) {
-                    if (document.getElementById("dynamic-bg").style.display == "block") {
+                    if (
+                        document.getElementById("dynamic-bg").style
+                            .display == "block"
+                    ) {
                         let source = document.querySelector("#bgsource");
                         let video = document.querySelector("#dynamic-bg");
                         source.src = `wallpapers/${wallurl}`;
                         video.load();
                         break;
                     }
-
                 }
-
-
             }
             closewallpreview();
             setcurbg(wallurl);
-
-
         }
 
         function getRandomInt(max) {
@@ -406,26 +420,26 @@
                 var reader = new FileReader();
                 reader.onloadend = function () {
                     callback(reader.result);
-                }
+                };
                 reader.readAsDataURL(xhr.response);
             };
-            xhr.open('GET', url);
-            xhr.responseType = 'blob';
+            xhr.open("GET", url);
+            xhr.responseType = "blob";
             xhr.send();
         }
-
-
 
         function setupdownloadbtn(image) {
             isDownloadBtnEnabled = true;
             document.querySelector(".download-image").href = image;
-            document.querySelector(".download-image").style.display = "flex";
+            document.querySelector(".download-image").style.display =
+                "flex";
         }
 
         function removedownloadbtn() {
             isDownloadBtnEnabled = false;
             document.querySelector(".download-image").href = null;
-            document.querySelector(".download-image").style.display = "none";
+            document.querySelector(".download-image").style.display =
+                "none";
         }
 
         function getcurbg() {
@@ -436,9 +450,9 @@
             var topics = localStorage.getItem("walltopics");
             if (topics) {
                 return topics;
-            }
-            else {
+            } else {
                 var topics = "river,space,astronaut";
+                localStorage.setItem("walltopics", topics);
                 return topics;
             }
             return localStorage.getItem("currentDynamicWallpaper");
@@ -450,15 +464,14 @@
         }
 
         function hasLocalStorage() {
-            return typeof window.localStorage !== 'undefined';
+            return typeof window.localStorage !== "undefined";
         }
-
 
         $(function () {
             $("#dock-items").sortable({
                 update: function (event, ui) {
                     NotifyChange();
-                } //end update       
+                }, //end update
             });
         });
 
@@ -468,14 +481,14 @@
         }
         function getIdsOfImages() {
             var values = [];
-            $('.dock-elements').each(function (index) {
+            $(".dock-elements").each(function (index) {
                 values.push($(this).data("id"));
             });
             console.log(values);
             let orderstr = values.join();
             let data = read_json();
             let newadata = [];
-            values.forEach(e => {
+            values.forEach((e) => {
                 newadata.push(data[e]);
                 console.log(e);
             });
@@ -484,11 +497,8 @@
 
             // $.get("/saveapporder", { apporder: orderstr });
         }
-
-
     </script>
     <!-- <script src="soccer_api.js"></script> -->
-
 </body>
 
 </html>
